@@ -5,33 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-	private int userId;
-	private String userName;
-	private String userPassword;
-	private String userFirstName;
-	private String userLastName;
-	private String userAddress;
-	private String userEmail;
+	private int userId; // primary key
+	private String username; // not null, unique
+	private String password; // not null
+	private String firstName; // not null
+	private String lastName; // not null
+	private String email; // not null
+	private LocalDate creationDate;
 	private BankRole role;
-	private LocalDate userCreationDate;
-	private List<Account> userAccounts = new ArrayList<Account>();
+	private List<Account> accounts = new ArrayList<Account>();
 
 	public User() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public User(int userId, String userName, String userPassword, String userFirstName, String userLastName,
-			String userAddress, String userEmail, BankRole role, LocalDate userCreationDate,
-			List<Account> userAccounts) {
+	public User(int userId, String username, String password, String firstName, String lastName, String email,
+			LocalDate creationDate, BankRole role, List<Account> accounts) {
 		this.userId = userId;
-		this.userName = userName;
-		this.userPassword = userPassword;
-		this.userFirstName = userFirstName;
-		this.userLastName = userLastName;
-		this.userAddress = userAddress;
-		this.userEmail = userEmail;
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.creationDate = creationDate;
 		this.role = role;
-		this.userCreationDate = userCreationDate;
-		this.userAccounts = userAccounts;
+		this.accounts = accounts;
 	}
 
 	public int getUserId() {
@@ -42,52 +40,52 @@ public class User {
 		this.userId = userId;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getUserPassword() {
-		return userPassword;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getUserFirstName() {
-		return userFirstName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setUserFirstName(String userFirstName) {
-		this.userFirstName = userFirstName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getUserLastName() {
-		return userLastName;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setUserLastName(String userLastName) {
-		this.userLastName = userLastName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getUserAddress() {
-		return userAddress;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserAddress(String userAddress) {
-		this.userAddress = userAddress;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
+	public LocalDate getCreationDate() {
+		return creationDate;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setCreationDate(LocalDate creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	public BankRole getRole() {
@@ -98,28 +96,19 @@ public class User {
 		this.role = role;
 	}
 
-	public LocalDate getUserCreationDate() {
-		return userCreationDate;
+	public List<Account> getAccounts() {
+		return accounts;
 	}
 
-	public void setUserCreationDate(LocalDate userCreationDate) {
-		this.userCreationDate = userCreationDate;
-	}
-
-	public List<Account> getUserAccounts() {
-		return userAccounts;
-	}
-
-	public void setUserAccounts(List<Account> userAccounts) {
-		this.userAccounts = userAccounts;
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword
-				+ ", userFirstName=" + userFirstName + ", userLastName=" + userLastName + ", userAddress=" + userAddress
-				+ ", userEmail=" + userEmail + ", role=" + role + ", userCreationDate=" + userCreationDate
-				+ ", userAccounts=" + userAccounts + "]";
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", email=" + email + ", creationDate=" + creationDate
+				+ ", role=" + role + ", accounts=" + accounts + "]";
 	}
 
 }

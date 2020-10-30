@@ -5,19 +5,10 @@ import java.util.List;
 import com.revature.model.User;
 
 public interface UserDao {
-	// CREATE
-	public void insertUser(User user);
-
-	// READ
-	public List<User> selectAllPokemon();
-
-	public User selectUserById(int id);
-
+	//CRUD NETHODS ONLY
+	public User insertUser(User user);
+	public List<User> selectAllUsers();
 	public User selectUserByUsername(String username);
-
-	// UPDATE
-	public void updateUser(User user);
-
-	// DELETE
-	public void deleteUser(User user);
+	public User updateUser(User user);
+	public User deleteUser(User user);
 }

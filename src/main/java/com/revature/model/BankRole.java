@@ -2,16 +2,15 @@ package com.revature.model;
 
 public class BankRole {
 	private int roleId; // primary key
-	private String role; // not null, unique
+	private String roleType; // not null, unique
 
 	public BankRole() {
-		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public BankRole(int roleId, String role) {
-		super();
+	public BankRole(int roleId, String roleType) {
 		this.roleId = roleId;
-		this.role = role;
+		this.roleType = roleType;
 	}
 
 	public int getRoleId() {
@@ -22,16 +21,17 @@ public class BankRole {
 		this.roleId = roleId;
 	}
 
-	public String getRole() {
-		return role;
+	public String getRoleType() {
+		return roleType;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoleType(String roleType) {
+		this.roleType = roleType;
 	}
 
 	@Override
 	public String toString() {
-		return "BankRole [roleId=" + roleId + ", role=" + role + "]";
+		return "BankRole [roleId=" + roleId + ", roleType=" + roleType + "]";
 	}
+
 }

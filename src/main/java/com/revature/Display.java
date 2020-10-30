@@ -41,5 +41,15 @@ public class Display {
 		System.out.println("|                                                                                  |");
 		System.out.println("------------------------------------------------------------------------------------\n\n");
 	}
+	
+	public void loginMenu() {
+		welcomeBox();
+		System.out.println("Options:");
+		System.out.println("1 - Sign into Bank API");
+		System.out.println("2 - Register to API");
+		System.out.println("3 - Reset Password");
+		System.out.println("4 - Exit API");
+		System.out.print("-----------Your pick: ");
+	}
 
 }

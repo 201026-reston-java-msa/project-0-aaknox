@@ -1,41 +1,47 @@
 package com.revature;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import com.revature.security.BankException;
-import com.revature.serviceimpl.UserServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class MainDriver {
 	
 	private static Scanner scanner = new Scanner(System.in);
-	
+
 	private static Display display = new Display();
-	
-	private static UserServiceImpl userServiceImpl = new UserServiceImpl();
+	private static final Logger logger = LogManager.getLogger(MainDriver.class);
 	
 	public static void main(String[] args) {
-		display.welcomeBox();
-		System.out.print("Please enter your username: ");
-		String username = scanner.next();
-		
-		System.out.print("Please enter your password: ");
-		String password = scanner.next();
-		
-		//user verification here
+		logger.info("This is an informational message from MainDriver.");
+		display.loginMenu();
+		int pick = scanner.nextInt();
 		try {
-			//go to bank api menu if verified
-			boolean isVerified = userServiceImpl.checkUsernameAndPassword(username, password);
-			if(isVerified) {
-				args = new String[100];
-				args[0] = username;
-				args[1] = password;
-				MenuDriver.main(args);
-			}else {
-				throw new BankException();
+			Thread.sleep(2000);
+			switch (pick) {
+				case 1:
+					Business.signIn();
+					break;
+				case 2:
+					Business.register();
+					break;
+				case 3:
+					Business.resetPassword();
+					break;
+				case 4:
+					display.goodbyeBox();
+					scanner.close();
+					System.exit(0);
+					break;
+				default:
+					break;
 			}
-		} catch (BankException e) {
-			//not verified -> throw bank exception and ask user to try again
-			throw new BankException("Invalid credentials entered");
+		} catch (InterruptedException e) {
+			logger.error("Thread interrupted in MainDriver:Main method. Stack Trace: ", e); //this line is not writing to log at current level ERROR
+		}catch (InputMismatchException e) {
+			logger.error("Input mismatch exception was thrown in MainDriver:Main method. Stack Trace: ", e); //this line is not writing to log at current level ERROR
 		}
 	}
 
