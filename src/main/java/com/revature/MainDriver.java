@@ -3,22 +3,22 @@ package com.revature;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
+
 
 
 public class MainDriver {
 	
 	private static Scanner scanner = new Scanner(System.in);
-
 	private static Display display = new Display();
-	private static final Logger logger = LogManager.getLogger(MainDriver.class);
+	private static Logger logger = Logger.getLogger(MainDriver.class);
 	
 	public static void main(String[] args) {
 		logger.info("This is an informational message from MainDriver.");
 		display.loginMenu();
-		int pick = scanner.nextInt();
 		try {
+			int pick = scanner.nextInt();
+			logger.info("Welcome menu pick entered is a valid number.");
 			Thread.sleep(2000);
 			switch (pick) {
 				case 1:
@@ -36,12 +36,13 @@ public class MainDriver {
 					System.exit(0);
 					break;
 				default:
+					logger.warn(pick + " is an unavailable menu option. Please restart the API.");
 					break;
 			}
 		} catch (InterruptedException e) {
-			logger.error("Thread interrupted in MainDriver:Main method. Stack Trace: ", e); //this line is not writing to log at current level ERROR
+			logger.error("Thread interrupted in MainDriver:Main method. Stack Trace: ", e); 
 		}catch (InputMismatchException e) {
-			logger.error("Input mismatch exception was thrown in MainDriver:Main method. Stack Trace: ", e); //this line is not writing to log at current level ERROR
+			logger.error("InputMismatch - Numbers accepted here only. From - MainDriver:Main method. Stack Trace: ", e); 
 		}
 	}
 

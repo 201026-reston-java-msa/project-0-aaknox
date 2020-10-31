@@ -1,6 +1,5 @@
 package com.revature.model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,6 @@ public class User {
 	private String firstName; // not null
 	private String lastName; // not null
 	private String email; // not null
-	private LocalDate creationDate;
 	private BankRole role;
 	private List<Account> accounts = new ArrayList<Account>();
 
@@ -20,14 +18,13 @@ public class User {
 	}
 
 	public User(int userId, String username, String password, String firstName, String lastName, String email,
-			LocalDate creationDate, BankRole role, List<Account> accounts) {
+			BankRole role, List<Account> accounts) {
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.creationDate = creationDate;
 		this.role = role;
 		this.accounts = accounts;
 	}
@@ -80,14 +77,6 @@ public class User {
 		this.email = email;
 	}
 
-	public LocalDate getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(LocalDate creationDate) {
-		this.creationDate = creationDate;
-	}
-
 	public BankRole getRole() {
 		return role;
 	}
@@ -107,8 +96,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", email=" + email + ", creationDate=" + creationDate
-				+ ", role=" + role + ", accounts=" + accounts + "]";
+				+ firstName + ", lastName=" + lastName + ", email=" + email + ", role=" + role + ", accounts="
+				+ accounts + "]";
 	}
 
 }

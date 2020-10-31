@@ -1,0 +1,23 @@
+2020-10-30 12:47:04 INFO  MainDriver:17 - This is an informational message from MainDriver.
+2020-10-30 12:47:11 ERROR MainDriver:45 - InputMismatch - Numbers accepted here only. From - MainDriver:Main method. Stack Trace: 
+java.util.InputMismatchException
+	at java.util.Scanner.throwFor(Unknown Source)
+	at java.util.Scanner.next(Unknown Source)
+	at java.util.Scanner.nextInt(Unknown Source)
+	at java.util.Scanner.nextInt(Unknown Source)
+	at com.revature.MainDriver.main(MainDriver.java:20)
+2020-10-30 12:47:26 INFO  MainDriver:17 - This is an informational message from MainDriver.
+2020-10-30 12:47:29 INFO  MainDriver:21 - Welcome menu pick entered is a valid number.
+2020-10-30 12:47:31 WARN  MainDriver:39 - 20 is an unavailable menu option. Please restart the API.
+2020-10-30 12:47:50 INFO  MainDriver:17 - This is an informational message from MainDriver.
+2020-10-30 12:47:54 INFO  MainDriver:21 - Welcome menu pick entered is a valid number.
+2020-10-30 12:48:09 INFO  MainDriver:17 - This is an informational message from MainDriver.
+2020-10-30 12:48:12 INFO  MainDriver:21 - Welcome menu pick entered is a valid number.
+2020-10-30 19:05:14 INFO  MainDriver:17 - This is an informational message from MainDriver.
+2020-10-30 19:05:27 INFO  MainDriver:21 - Welcome menu pick entered is a valid number.
+2020-10-30 19:05:42 INFO  UserDaoImpl:103 - User search by username was successful. User [userId=1, username=aaknox, password=null, firstName=password, lastName=Azhya, email=Knox, role=BankRole [roleId=1, roleType=azhya.knox@gmail.com], accounts=[]]
+2020-10-30 19:08:44 INFO  MainDriver:17 - This is an informational message from MainDriver.
+2020-10-30 19:08:49 INFO  MainDriver:21 - Welcome menu pick entered is a valid number.
+2020-10-30 19:09:00 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-10-30 19:09:00 INFO  UserServiceImpl:68 - credentials match
+2020-10-30 19:09:00 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
