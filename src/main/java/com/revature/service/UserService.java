@@ -14,6 +14,8 @@ public interface UserService {
 	public User getUserByUsername(String uname);
 
 	public void modifyUser(User user);
+	
+	public void modifyPassword(String uname, String pw);
 
 	public void removeUser(User user);
 

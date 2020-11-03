@@ -14,6 +14,10 @@ public class MainDriver {
 	private static Logger logger = Logger.getLogger(MainDriver.class);
 	
 	public static void main(String[] args) {
+		welcomeScreen();
+	}
+	
+	public static void welcomeScreen() {
 		logger.info("This is an informational message from MainDriver.");
 		display.loginMenu();
 		try {

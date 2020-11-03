@@ -15,8 +15,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void addUser(User myNewUser) {
-		// TODO Auto-generated method stub
-
+		userDao.insertUser(myNewUser);
 	}
 
 	@Override
@@ -37,8 +36,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void modifyUser(User user) {
-		// TODO Auto-generated method stub
-
+		userDao.updateUser(user);
+	}
+	
+	@Override
+	public void modifyPassword(String uname, String pw) {
+		userDao.updatePassword(uname, pw);
 	}
 
 	@Override
@@ -73,5 +76,7 @@ public class UserServiceImpl implements UserService {
 			return false;
 		}
 	}
+
+	
 
 }

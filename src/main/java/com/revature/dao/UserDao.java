@@ -10,5 +10,6 @@ public interface UserDao {
 	public List<User> selectAllUsers();
 	public User selectUserByUsername(String username);
 	public void updateUser(User user);
+	public void updatePassword(String username, String password);
 	public void deleteUser(User user);
 }

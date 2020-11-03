@@ -21,3 +21,55 @@ java.util.InputMismatchException
 2020-10-30 19:09:00 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
 2020-10-30 19:09:00 INFO  UserServiceImpl:68 - credentials match
 2020-10-30 19:09:00 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 18:11:18 INFO  MainDriver:17 - This is an informational message from MainDriver.
+2020-11-02 18:11:35 INFO  MainDriver:21 - Welcome menu pick entered is a valid number.
+2020-11-02 18:11:37 INFO  Business:24 - Logging in existing user...
+2020-11-02 18:14:17 INFO  MainDriver:17 - This is an informational message from MainDriver.
+2020-11-02 18:14:22 INFO  MainDriver:21 - Welcome menu pick entered is a valid number.
+2020-11-02 18:14:24 INFO  Business:24 - Logging in existing user...
+2020-11-02 18:16:11 INFO  MainDriver:17 - This is an informational message from MainDriver.
+2020-11-02 18:16:14 INFO  MainDriver:21 - Welcome menu pick entered is a valid number.
+2020-11-02 18:16:16 INFO  Business:24 - Logging in existing user...
+2020-11-02 18:16:30 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 18:16:30 INFO  UserServiceImpl:68 - credentials match
+2020-11-02 18:16:30 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 18:16:30 INFO  Business:43 - User found in database: User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 18:48:34 INFO  MainDriver:17 - This is an informational message from MainDriver.
+2020-11-02 18:48:42 INFO  MainDriver:21 - Welcome menu pick entered is a valid number.
+2020-11-02 18:48:44 INFO  Business:38 - Logging in existing user...
+2020-11-02 18:48:57 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 18:48:57 INFO  UserServiceImpl:68 - credentials match
+2020-11-02 18:48:57 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 18:48:57 INFO  Business:57 - User found in database: User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 18:49:02 INFO  Business:112 - Exiting current session
+2020-11-02 20:41:28 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-02 20:41:54 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-02 20:41:59 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-02 20:42:01 INFO  Business:121 - Now starting registration process for a new user.
+2020-11-02 20:42:46 INFO  UserDaoImpl:56 - User has been successfully added to Bank API database.
+2020-11-02 20:42:46 INFO  Business:164 - Successfully added user bwade to API database.
+2020-11-02 20:42:46 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=6, username=bwade, password=password, firstName=Betty, lastName=Wade, email=bwade@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-02 20:42:48 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-02 20:42:59 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-02 20:45:44 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-02 20:46:04 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-02 20:46:06 INFO  Business:121 - Now starting registration process for a new user.
+2020-11-02 20:46:58 INFO  Business:121 - Now starting registration process for a new user.
+2020-11-02 21:35:06 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-02 21:35:12 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-02 21:35:14 INFO  Business:186 - Beginning password reset process.
+2020-11-02 21:35:19 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 21:35:36 INFO  UserDaoImpl:152 - User update for aaknox was successful. 
+2020-11-02 21:35:37 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-02 21:35:55 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-02 21:35:57 INFO  Business:60 - Logging in existing user...
+2020-11-02 21:36:08 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=alease2012, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 21:36:08 ERROR UserServiceImpl:75 - Credentials do not match database information for this user.
+2020-11-02 21:36:42 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-02 21:36:46 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-02 21:36:48 INFO  Business:60 - Logging in existing user...
+2020-11-02 21:37:00 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=alease2012, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 21:37:00 INFO  UserServiceImpl:71 - credentials match
+2020-11-02 21:37:00 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=alease2012, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 21:37:00 INFO  Business:79 - User found in database: User [userId=1, username=aaknox, password=alease2012, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-02 21:37:04 INFO  Business:240 - Exiting current session

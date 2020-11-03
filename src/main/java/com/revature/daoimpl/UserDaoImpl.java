@@ -138,6 +138,24 @@ public class UserDaoImpl implements UserDao {
 			logger.warn("SQL statement failed - UserDaoImpl class::updateUser method. Stack Trace: ", e);
 		}
 	}
+	
+	@Override
+	public void updatePassword(String username, String password) {
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+			//now updating users table
+			String sql="UPDATE users SET user_password = ? WHERE username = ?;";
+			PreparedStatement ps3 = conn.prepareStatement(sql);
+			ps3.setString(1, password);
+			ps3.setString(2, username);
+			ps3.executeUpdate();
+			
+			logger.info("User update for " + username + " was successful. ");
+
+		} catch (SQLException e) {
+			logger.warn("SQL statement failed - UserDaoImpl class::updateUser method. Stack Trace: ", e);
+		}
+		
+	}
 
 	@Override
 	public void deleteUser(User user) {
