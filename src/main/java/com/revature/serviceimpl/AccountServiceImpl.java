@@ -17,4 +17,36 @@ public class AccountServiceImpl implements AccountService {
 		accountDao.insertAccount(acc, uname);
 	}
 
+	@Override
+	public void makeDeposit(double addedCash, int id) {
+		logger.info("Sending deposit request to the database.");
+		//find the account
+		Account account = accountDao.selectAccountById(id);
+		System.out.println(account);
+		//set new balance
+		account.setBalance(account.getBalance() + addedCash);
+		double myNewBalance = account.getBalance();
+		logger.info("New balance: " + account.getBalance());
+		logger.info("Updating account balance to account number " + id);
+		//update the database
+		accountDao.updateAccountBalance(myNewBalance, id);
+	}
+
+	@Override
+	public void makeWithdraw(double subbedCash, int id) {
+		logger.info("Sending withdrawal request to the database.");
+		//find the account
+		Account account = accountDao.selectAccountById(id);
+		System.out.println(account);
+		//set new balance
+		account.setBalance(account.getBalance() - subbedCash);
+		double myNewBalance = account.getBalance();
+		//check if new balance would be in zero or negative range before sending it to dao
+		logger.info("New balance: " + account.getBalance());
+		logger.info("Updating account balance to account number " + id);
+		//update the database
+		accountDao.updateAccountBalance(myNewBalance, id);
+		
+	}
+
 }

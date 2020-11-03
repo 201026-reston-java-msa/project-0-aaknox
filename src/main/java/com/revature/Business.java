@@ -22,7 +22,6 @@ public class Business {
 	private static UserService userService = new UserServiceImpl();
 	private static AccountService accountService = new AccountServiceImpl();
 	private static Logger logger = Logger.getLogger(Business.class);
-	private static Display display = new Display();
 
 	/**
 	 * This main method acts as a controller for all business logic methods
@@ -55,10 +54,10 @@ public class Business {
 			transfer();
 			break;
 		case 6:
-			viewAccountInfo();
+			viewAccounts();
 			break;
 		case 7:
-			viewPersonalInfo();
+			viewCustomers();
 			break;
 		case 8:
 			viewPendingApplications();
@@ -100,7 +99,6 @@ public class Business {
 				logger.info("User found in database: " + user);
 				// load args with user in string values
 				String[] userInfo = new String[10];
-				String userId = String.valueOf(user.getUserId());
 				String userFirstName = user.getFirstName();
 				String userLastName = user.getLastName();
 				String userEmail = user.getEmail();
@@ -109,12 +107,9 @@ public class Business {
 				for (int i = 0; i < 10; i++) {
 					switch (i) {
 					case 0:
-						userInfo[i] = userId;
-						break;
-					case 1:
 						userInfo[i] = username;
 						break;
-					case 2:
+					case 1:
 						userInfo[i] = password;
 						break;
 					case 3:
@@ -270,13 +265,11 @@ public class Business {
 		try {
 			// wait a sec...
 			Thread.sleep(1000);
-			// show goodbye message
-			display.goodbyeBox();
-			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			logger.warn("Thread.sleep() failed here. Stack Trace: ", e);
 		} finally {
-			System.exit(0);
+			//return to welcome screen
+			MainDriver.welcomeScreen();
 		}
 
 	}
@@ -310,8 +303,8 @@ public class Business {
 		} else {
 			throw new BankException("Starting deposit amount is too low");
 		}
-		
-		//return to main menu
+
+		// return to main menu
 		String[] sessionUserInfo = new String[10];
 		sessionUserInfo[0] = user.getUsername();
 		sessionUserInfo[1] = user.getPassword();
@@ -319,7 +312,27 @@ public class Business {
 	}
 
 	public static void deposit() {
-
+		logger.info("Beginning deposit request.");
+		user = userService.getUserByUsername(user.getUsername());
+		//prompt user for deposit amount
+		System.out.print("How much would you like to deposit into your account today: ");
+		double myDeposit = scanner.nextDouble();
+		//prompt user for account number
+		System.out.print("Please enter your account number: ");
+		int userAccNo = scanner.nextInt();
+		
+		logger.debug("Deposit request submitted: $" + myDeposit 
+				+ " to account number " + userAccNo 
+				+ ".\n Requestor: " + user.getUsername() 
+				+ ", Role: " + user.getRole().getRoleType());
+		//some logic to check if this user is authorized to make changes to account
+		accountService.makeDeposit(myDeposit, userAccNo);
+		logger.info("Deposit request has been successfully submitted. Returning to main menu.");
+		// return to main menu
+		String[] sessionUserInfo = new String[10];
+		sessionUserInfo[0] = user.getUsername();
+		sessionUserInfo[1] = user.getPassword();
+		MenuDriver.main(sessionUserInfo);
 	}
 
 	public static void checkBalance() {
@@ -327,18 +340,38 @@ public class Business {
 	}
 
 	public static void withdraw() {
-
+		logger.info("Beginning withdrawal request.");
+		user = userService.getUserByUsername(user.getUsername());
+		//prompt user for deposit amount
+		System.out.print("How much would you like to withdraw from your account today: ");
+		double myWithdraw = scanner.nextDouble();
+		//prompt user for account number
+		System.out.print("Please enter your account number: ");
+		int userAccNo = scanner.nextInt();
+		
+		logger.debug("Withdrawal request submitted: $" + myWithdraw 
+				+ " to account number " + userAccNo 
+				+ ".\n Requestor: " + user.getUsername() 
+				+ ", Role: " + user.getRole().getRoleType());
+		//some logic to check if this user is authorized to make changes to account
+		accountService.makeWithdraw(myWithdraw, userAccNo);
+		logger.info("Withdrawal request has been successfully submitted. Returning to main menu.");
+		// return to main menu
+		String[] sessionUserInfo = new String[10];
+		sessionUserInfo[0] = user.getUsername();
+		sessionUserInfo[1] = user.getPassword();
+		MenuDriver.main(sessionUserInfo);
 	}
 
 	public static void transfer() {
 
 	}
 
-	public static void viewAccountInfo() {
+	public static void viewAccounts() {
 
 	}
 
-	public static void viewPersonalInfo() {
+	public static void viewCustomers() {
 
 	}
 

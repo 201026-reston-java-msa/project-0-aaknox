@@ -138,6 +138,7 @@ SELECT * FROM account_status;
 SELECT * FROM accounts;
 SELECT * FROM users;
 SELECT * FROM bank_roles;
+
 /*******************************
  * 		Drop Tables
  *******************************/

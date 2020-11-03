@@ -6,12 +6,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.revature.dao.AccountDao;
 import com.revature.model.Account;
+import com.revature.model.AccountStatus;
+import com.revature.model.AccountType;
 
 public class AccountDaoImpl implements AccountDao {
 	private static Logger logger = Logger.getLogger(UserDaoImpl.class);
@@ -19,7 +22,7 @@ public class AccountDaoImpl implements AccountDao {
 	private static String url = "jdbc:postgresql://localhost:5432/postgres";
 	private static String dbUsername = "postgres";
 	private static String dbPassword = "password";
-	
+
 	@Override
 	public void insertAccount(Account acc, String uname) {
 		System.out.println("inside insertAccount method in account dao impl");
@@ -72,7 +75,7 @@ public class AccountDaoImpl implements AccountDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -83,8 +86,28 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public Account selectAccountById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("in account dao impl selectAccountById method");
+		Account account = new Account();
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+
+			String sql = "SELECT * FROM accounts WHERE account_id = " + id + ";";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				account.setAccountId(rs.getInt(1));
+				account.setBalance(rs.getDouble(2));
+				account.setStatus(new AccountStatus(rs.getInt(1), rs.getString(3)));
+				account.setType(new AccountType(rs.getInt(1), rs.getString(4)));
+				String date = rs.getDate(6).toString();
+				account.setCreationDate(LocalDate.parse(date));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return account;
 	}
 
 	@Override
@@ -113,20 +136,32 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public void updateAccountBalance(double balance, int id) {
-		// TODO Auto-generated method stub
-		
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+
+			String sql = "UPDATE accounts SET account_balance = ?  WHERE account_id = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setDouble(1, balance);
+			ps.setInt(2, id);
+			ps.executeUpdate();
+			logger.info("new balance is now set");
+
+		} catch (SQLException e) {
+			logger.warn("Error in SQL execution to update balance. Stack Trace: ", e);
+		}
+
 	}
 
 	@Override
 	public void updateAccount(Account enteredAccount, int id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAccountById(int id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
