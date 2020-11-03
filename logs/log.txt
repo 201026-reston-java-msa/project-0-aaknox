@@ -73,3 +73,47 @@ java.util.InputMismatchException
 2020-11-02 21:37:00 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=1, username=aaknox, password=alease2012, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
 2020-11-02 21:37:00 INFO  Business:79 - User found in database: User [userId=1, username=aaknox, password=alease2012, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
 2020-11-02 21:37:04 INFO  Business:240 - Exiting current session
+2020-11-03 09:20:29 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-03 09:20:44 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-03 09:20:46 INFO  Business:78 - Logging in existing user...
+2020-11-03 09:21:04 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:21:04 INFO  UserServiceImpl:67 - credentials match
+2020-11-03 09:21:04 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:21:04 INFO  Business:97 - User found in database: User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:21:10 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=0, username=null, password=null, firstName=null, lastName=null, email=null, role=null, accounts=[]]
+2020-11-03 09:21:10 INFO  Business:280 - Beginning a new account application.
+2020-11-03 09:21:47 INFO  AccountServiceImpl:16 - Adding account to database.
+2020-11-03 09:21:47 INFO  UserDaoImpl:35 - insert into account table complete
+2020-11-03 09:30:58 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-03 09:31:03 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-03 09:31:06 INFO  Business:81 - Logging in existing user...
+2020-11-03 09:31:26 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=4, username=customer002, password=sheready, firstName=Tiffany, lastName=Haddish, email=tiff.haddish34@hotmail.com, role=BankRole [roleId=4, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:31:26 INFO  UserServiceImpl:67 - credentials match
+2020-11-03 09:31:26 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=4, username=customer002, password=sheready, firstName=Tiffany, lastName=Haddish, email=tiff.haddish34@hotmail.com, role=BankRole [roleId=4, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:31:26 INFO  Business:100 - User found in database: User [userId=4, username=customer002, password=sheready, firstName=Tiffany, lastName=Haddish, email=tiff.haddish34@hotmail.com, role=BankRole [roleId=4, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:31:30 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=0, username=null, password=null, firstName=null, lastName=null, email=null, role=null, accounts=[]]
+2020-11-03 09:31:30 INFO  Business:285 - Beginning a new account application.
+2020-11-03 09:35:15 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-03 09:35:19 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-03 09:35:21 INFO  Business:81 - Logging in existing user...
+2020-11-03 09:35:36 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=4, username=customer002, password=sheready, firstName=Tiffany, lastName=Haddish, email=tiff.haddish34@hotmail.com, role=BankRole [roleId=4, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:35:36 INFO  UserServiceImpl:67 - credentials match
+2020-11-03 09:35:36 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=4, username=customer002, password=sheready, firstName=Tiffany, lastName=Haddish, email=tiff.haddish34@hotmail.com, role=BankRole [roleId=4, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:35:36 INFO  Business:100 - User found in database: User [userId=4, username=customer002, password=sheready, firstName=Tiffany, lastName=Haddish, email=tiff.haddish34@hotmail.com, role=BankRole [roleId=4, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:35:39 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=4, username=customer002, password=sheready, firstName=Tiffany, lastName=Haddish, email=tiff.haddish34@hotmail.com, role=BankRole [roleId=4, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:35:39 INFO  Business:285 - Beginning a new account application.
+2020-11-03 09:35:52 INFO  AccountServiceImpl:16 - Adding account to database.
+2020-11-03 09:35:53 INFO  UserDaoImpl:35 - insert into account table complete
+2020-11-03 09:48:12 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-03 09:48:17 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-03 09:48:19 INFO  Business:81 - Logging in existing user...
+2020-11-03 09:48:33 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=5, username=trigga, password=songz123, firstName=Trey, lastName=Songz, email=trey.songz@gmail.com, role=BankRole [roleId=5, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:48:33 INFO  UserServiceImpl:64 - credentials match
+2020-11-03 09:48:34 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=5, username=trigga, password=songz123, firstName=Trey, lastName=Songz, email=trey.songz@gmail.com, role=BankRole [roleId=5, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:48:34 INFO  Business:100 - User found in database: User [userId=5, username=trigga, password=songz123, firstName=Trey, lastName=Songz, email=trey.songz@gmail.com, role=BankRole [roleId=5, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:48:37 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=5, username=trigga, password=songz123, firstName=Trey, lastName=Songz, email=trey.songz@gmail.com, role=BankRole [roleId=5, roleType=CUSTOMER], accounts=[]]
+2020-11-03 09:48:37 INFO  Business:285 - Beginning a new account application.
+2020-11-03 09:48:48 INFO  AccountServiceImpl:16 - Adding account to database.
+2020-11-03 09:48:48 INFO  UserDaoImpl:35 - insert into account table complete
+2020-11-03 09:48:53 INFO  UserDaoImpl:104 - User search by username was successful. User [userId=0, username=null, password=null, firstName=null, lastName=null, email=null, role=null, accounts=[]]
+2020-11-03 09:48:53 INFO  Business:269 - Exiting current session

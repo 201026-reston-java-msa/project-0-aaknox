@@ -3,10 +3,7 @@ package com.revature.serviceimpl;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-
-import com.revature.dao.AccountDao;
 import com.revature.dao.UserDao;
-import com.revature.daoimpl.AccountDaoImpl;
 import com.revature.daoimpl.UserDaoImpl;
 import com.revature.model.User;
 import com.revature.service.UserService;
