@@ -24,11 +24,10 @@ public class Display {
 		System.out.println("5 - transfer funds to another account");
 		System.out.println();
 		System.out.println("6 - Show customer account information");
-		System.out.println("7 - Show customer account balance(s)");
 		System.out.println("7 - Show customer personal information");
 		System.out.println("8 - Check pending account applications");
 		System.out.println();
-		System.out.println("9 - Approve/Deny open applications for accounts");
+		System.out.println("9 - Approve/Deny applications for accounts");
 		System.out.println("10 - Cancel an account");
 		System.out.println("11 - Log Out");
 		System.out.print("-----------Your pick: ");

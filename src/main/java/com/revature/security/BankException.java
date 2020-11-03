@@ -1,6 +1,6 @@
 package com.revature.security;
 
-public class BankException extends Exception{
+public class BankException extends RuntimeException{
 	
 	private static final long serialVersionUID = 1L;
 

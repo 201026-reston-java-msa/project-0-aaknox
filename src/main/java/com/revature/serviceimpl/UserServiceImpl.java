@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.revature.dao.AccountDao;
 import com.revature.dao.UserDao;
+import com.revature.daoimpl.AccountDaoImpl;
 import com.revature.daoimpl.UserDaoImpl;
 import com.revature.model.User;
 import com.revature.service.UserService;
@@ -46,12 +48,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void removeUser(User user) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void accountCreate(String user, double startBal) {
 		// TODO Auto-generated method stub
 
 	}

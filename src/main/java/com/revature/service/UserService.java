@@ -20,7 +20,6 @@ public interface UserService {
 	public void removeUser(User user);
 
 	// business methods
-	public void accountCreate(String user, double startBal);
 
 	public boolean checkUsernameAndPassword(String u, String p);
 }

@@ -1,19 +1,26 @@
 package com.revature;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
+import com.revature.model.Account;
+import com.revature.model.AccountStatus;
+import com.revature.model.AccountType;
 import com.revature.model.BankRole;
 import com.revature.model.User;
-
+import com.revature.security.BankException;
+import com.revature.service.AccountService;
 import com.revature.service.UserService;
+import com.revature.serviceimpl.AccountServiceImpl;
 import com.revature.serviceimpl.UserServiceImpl;
 
 public class Business {
 	private static User user;
 	private static Scanner scanner = new Scanner(System.in);
 	private static UserService userService = new UserServiceImpl();
+	private static AccountService accountService = new AccountServiceImpl();
 	private static Logger logger = Logger.getLogger(Business.class);
 	private static Display display = new Display();
 	
@@ -27,27 +34,38 @@ public class Business {
 	 * 
 	 **/
 	public static void main(String[] args) {
+		user = userService.getUserByUsername(args[0]);
 		int choice = Integer.parseInt(args[2]);
 		switch (choice) {
 		case 1:
+			createNewAccount();
 			break;
 		case 2:
+			deposit();
 			break;
 		case 3:
+			checkBalance();
 			break;
 		case 4:
+			withdraw();
 			break;
 		case 5:
+			transfer();
 			break;
 		case 6:
+			viewAccountInfo();
 			break;
 		case 7:
+			viewPersonalInfo();
 			break;
 		case 8:
+			viewPendingApplications();
 			break;
 		case 9:
+			authorizeApplications();
 			break;
 		case 10:
+			cancelAccount();
 			break;
 		case 11:
 			signOut();
@@ -140,12 +158,18 @@ public class Business {
 			newPerson.getRole().setRoleType("CUSTOMER");
 			break;
 		case 2:
+			//some admin approval method call here
 			newPerson.getRole().setRoleType("EMPLOYEE");
 			break;
 		case 3:
+			//some admin approval method call here
 			newPerson.getRole().setRoleType("ADMIN");
 			break;
 		default:
+			logger.warn("Invalid selection. Default role has been assigned.");
+			System.out.println("Not a valid role. You have been set as CUSTOMER by default.");
+			System.out.println("Please contact an adminstrator if you need to upgrade to a different role");
+			newPerson.getRole().setRoleType("CUSTOMER");
 			break;
 		}
 		//verify that given user information is correct
@@ -249,6 +273,71 @@ public class Business {
 		}finally {
 			System.exit(0);
 		}
+		
+	}
+	
+	public static void createNewAccount() {
+		logger.info("Beginning a new account application.");
+		System.out.println("What kind of account are you applying for today?");
+		System.out.println("1 - Checking\n2 - Savings");
+		System.out.print("--------Your Pick: ");
+		int pick = scanner.nextInt();
+		String accountTypeName = "";
+		if(pick == 1) {
+			accountTypeName = "CHECKING";
+		}else if (pick == 2){
+			accountTypeName = "SAVINGS";
+		}else {
+			logger.debug("Invalid selection. Account will be set to CHECKING by default.");
+			System.out.println("Invalid account type selected. You have been set as CHECKING by default.");
+			System.out.println("Please contact an adminstrator if you need to upgrade to a different type of account.");
+			accountTypeName = "CHECKING";
+		}
+		
+		System.out.print("How much would you like to deposit into this account ($50.00 min): $");
+		
+		double balance = scanner.nextDouble();
+		if(balance >= 50) {
+			//create account
+			accountService.accountCreate(new Account(0, balance, new AccountStatus(0, "PENDING"), new AccountType(0, accountTypeName), LocalDate.now()), user.getUsername());
+		}else {
+			throw new BankException("Starting deposit amount is too low");
+		}
+	}
+	
+	public static void deposit() {
+		
+	}
+	
+	public static void checkBalance() {
+		
+	}
+	
+	public static void withdraw() {
+		
+	}
+	
+	public static void transfer() {
+		
+	}
+	
+	public static void viewAccountInfo() {
+		
+	}
+	
+	public static void viewPersonalInfo() {
+		
+	}
+	
+	public static void viewPendingApplications() {
+		
+	}
+	
+	public static void authorizeApplications() {
+		
+	}
+	
+	public static void cancelAccount() {
 		
 	}
 }
