@@ -10,8 +10,10 @@ public interface AccountDao {
 
 	// READ
 	public List<Account> selectAllAccounts();
+	
+	public int selectUserIdByAccountId(int accId);
 
-	public Account selectAccountById(int id);
+	public Account selectAccountByAccountId(int id);
 
 	public List<Account> selectAllAccountsByUsername(String user);
 

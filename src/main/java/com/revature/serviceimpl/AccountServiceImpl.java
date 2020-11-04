@@ -1,5 +1,7 @@
 package com.revature.serviceimpl;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.revature.dao.AccountDao;
@@ -21,7 +23,7 @@ public class AccountServiceImpl implements AccountService {
 	public void makeDeposit(double addedCash, int id) {
 		logger.info("Sending deposit request to the database.");
 		//find the account
-		Account account = accountDao.selectAccountById(id);
+		Account account = accountDao.selectAccountByAccountId(id);
 		System.out.println(account);
 		//set new balance
 		account.setBalance(account.getBalance() + addedCash);
@@ -36,7 +38,7 @@ public class AccountServiceImpl implements AccountService {
 	public void makeWithdraw(double subbedCash, int id) {
 		logger.info("Sending withdrawal request to the database.");
 		//find the account
-		Account account = accountDao.selectAccountById(id);
+		Account account = accountDao.selectAccountByAccountId(id);
 		System.out.println(account);
 		//set new balance
 		account.setBalance(account.getBalance() - subbedCash);
@@ -47,6 +49,30 @@ public class AccountServiceImpl implements AccountService {
 		//update the database
 		accountDao.updateAccountBalance(myNewBalance, id);
 		
+	}
+
+	@Override
+	public List<Account> viewAccountsByUserId(int uid) {
+		List<Account> accs = accountDao.selectAllAccountsByUserID(uid);
+		return accs;
+	}
+
+	@Override
+	public Account getAccountByAccountId(int accountId) {
+		Account account = accountDao.selectAccountByAccountId(accountId);
+		return account;
+	}
+
+	@Override
+	public List<Account> getAllAccounts() {
+		List<Account> accounts = accountDao.selectAllAccounts();
+		return accounts;
+	}
+
+	@Override
+	public int findOwnerIdOfAccount(Account account) {
+		int ownerid = accountDao.selectUserIdByAccountId(account.getAccountId());
+		return ownerid;
 	}
 
 }

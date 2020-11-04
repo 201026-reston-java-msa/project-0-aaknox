@@ -1,6 +1,7 @@
 package com.revature;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
@@ -32,6 +33,7 @@ public class Business {
 	 * @author Azhya
 	 * 
 	 **/
+
 	public static void main(String[] args) {
 		// set up session user
 		System.out.println("Current session user name: " + args[0]);
@@ -268,7 +270,7 @@ public class Business {
 		} catch (InterruptedException e) {
 			logger.warn("Thread.sleep() failed here. Stack Trace: ", e);
 		} finally {
-			//return to welcome screen
+			// return to welcome screen
 			MainDriver.welcomeScreen();
 		}
 
@@ -314,18 +316,16 @@ public class Business {
 	public static void deposit() {
 		logger.info("Beginning deposit request.");
 		user = userService.getUserByUsername(user.getUsername());
-		//prompt user for deposit amount
+		// prompt user for deposit amount
 		System.out.print("How much would you like to deposit into your account today: ");
 		double myDeposit = scanner.nextDouble();
-		//prompt user for account number
+		// prompt user for account number
 		System.out.print("Please enter your account number: ");
 		int userAccNo = scanner.nextInt();
-		
-		logger.debug("Deposit request submitted: $" + myDeposit 
-				+ " to account number " + userAccNo 
-				+ ".\n Requestor: " + user.getUsername() 
-				+ ", Role: " + user.getRole().getRoleType());
-		//some logic to check if this user is authorized to make changes to account
+
+		logger.debug("Deposit request submitted: $" + myDeposit + " to account number " + userAccNo + ".\n Requestor: "
+				+ user.getUsername() + ", Role: " + user.getRole().getRoleType());
+		// some logic to check if this user is authorized to make changes to account
 		accountService.makeDeposit(myDeposit, userAccNo);
 		logger.info("Deposit request has been successfully submitted. Returning to main menu.");
 		// return to main menu
@@ -336,24 +336,63 @@ public class Business {
 	}
 
 	public static void checkBalance() {
-
+		logger.info("Beginning to check user balance");
+		user = userService.getUserByUsername(user.getUsername());
+		// check to see if session has more than one account
+		List<Account> accounts = accountService.viewAccountsByUserId(user.getUserId());
+		// if zero--> throw exception and return to main menu
+		if (accounts == null) {
+			throw new BankException("list returned empty");
+		} else {
+			// if one or more--> populate account table
+			// print table headers
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", "ACCOUNT_ID", "BALANCE", "STATUS", "TYPE",
+					"OWNER", "CREATION_DATE");
+			System.out.println();
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			for (Account a : accounts) {
+				// print table content
+				System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", a.getAccountId(), a.getBalance(),
+						a.getStatus().getStatus(), a.getType().getType(), user.getUserId(), a.getCreationDate());
+				System.out.println();
+			}
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			// run loop to check if user q button
+			boolean isExited = false;
+			while (isExited == false) {
+				System.out.print("Press [Q] at any time to return to the main menu: ");
+				char exitKey = scanner.next().charAt(0);
+				if (exitKey == 'q' || exitKey == 'Q') {
+					logger.info("User has pressed the quit key.");
+					isExited = true;
+				}
+			}
+			// if q-> return to main menu
+			logger.info("User is now ready to return to main menu.");
+			String[] sessionUserInfo = new String[10];
+			sessionUserInfo[0] = user.getUsername();
+			sessionUserInfo[1] = user.getPassword();
+			MenuDriver.main(sessionUserInfo);
+		}
 	}
 
 	public static void withdraw() {
 		logger.info("Beginning withdrawal request.");
 		user = userService.getUserByUsername(user.getUsername());
-		//prompt user for deposit amount
+		// prompt user for deposit amount
 		System.out.print("How much would you like to withdraw from your account today: ");
 		double myWithdraw = scanner.nextDouble();
-		//prompt user for account number
+		// prompt user for account number
 		System.out.print("Please enter your account number: ");
 		int userAccNo = scanner.nextInt();
-		
-		logger.debug("Withdrawal request submitted: $" + myWithdraw 
-				+ " to account number " + userAccNo 
-				+ ".\n Requestor: " + user.getUsername() 
-				+ ", Role: " + user.getRole().getRoleType());
-		//some logic to check if this user is authorized to make changes to account
+
+		logger.debug("Withdrawal request submitted: $" + myWithdraw + " to account number " + userAccNo
+				+ ".\n Requestor: " + user.getUsername() + ", Role: " + user.getRole().getRoleType());
+		// some logic to check if this user is authorized to make changes to account
 		accountService.makeWithdraw(myWithdraw, userAccNo);
 		logger.info("Withdrawal request has been successfully submitted. Returning to main menu.");
 		// return to main menu
@@ -364,11 +403,135 @@ public class Business {
 	}
 
 	public static void transfer() {
+		// get session user
+		logger.info("Beginning transfer request.");
+		user = userService.getUserByUsername(user.getUsername());
+		List<Account> ulist = accountService.viewAccountsByUserId(user.getUserId());
+		// get fromAccount from user
+		System.out.print("Please enter the account ID number that will be SENDING money: ");
+		int fromAccountId = scanner.nextInt();
+		Account fromAccount = accountService.getAccountByAccountId(fromAccountId);
 
+		logger.debug("Testing ownership check.");
+		boolean isAuthorized = false;
+		for (Account account : ulist) {
+			logger.debug("Index: " + account);
+			if (account.getAccountId() == fromAccount.getAccountId()) {
+				logger.info("Account found in list: " + account);
+				isAuthorized = true;
+				break;
+			}
+		}
+
+		if (isAuthorized == true) {
+			logger.debug("Check passed.");
+		} else {
+			logger.debug("User is not an owner.");
+		}
+
+		// check if user is authorize to access this account
+		if (user.getRole().getRoleType().equals("EMPLOYEE") || user.getRole().getRoleType().equals("ADMIN")
+				|| isAuthorized == true) {
+			logger.info(user.getUsername() + ", " + user.getRole().getRoleType()
+					+ " is an authorized user for this type of request.");
+			// ask for toAccount
+			System.out.print("Please enter the account ID number that will be RECEIVING money: ");
+			int toAccountId = scanner.nextInt();
+			Account toAccount = accountService.getAccountByAccountId(toAccountId);
+			// ask for transferAmt
+			System.out.print("Amount of money transferred: $");
+			double transferAmt = scanner.nextDouble();
+			double afterFromAccountAmt = fromAccount.getBalance() - transferAmt;
+			// check if both accounts are open or one is at least pending
+			boolean isOP = false;
+			if (fromAccount.getStatus().getStatus().equals("OPEN")
+					&& toAccount.getStatus().getStatus().equals("OPEN")) {
+				isOP = true;
+			} else if (fromAccount.getStatus().getStatus().equals("PENDING")
+					|| toAccount.getStatus().getStatus().equals("PENDING")) {
+				isOP = true;
+			} else {
+				isOP = false;
+			}
+
+			while (isOP == true) {
+				// check if fromAccount has enough money
+				if (afterFromAccountAmt >= 0) {
+					logger.info("Processing transfer request now.");
+					accountService.makeWithdraw(transferAmt, fromAccountId);
+					accountService.makeDeposit(transferAmt, toAccountId);
+					logger.info("Transfer request to database completed.");
+					isOP = false;
+				} else {
+					logger.warn("Insufficient funds from sender. Balance: $" + fromAccount.getBalance()
+							+ ", Transfer Amount: $" + transferAmt, new BankException());
+				}
+			}
+
+		} else {
+			// everything else - unauthorized user
+			logger.warn(user.getUsername() + ", " + user.getRole().getRoleType()
+					+ " is an unauthorized user for this type of request.");
+		}
+
+		// return to main menu
+		String[] sessionUserInfo = new String[10];
+		sessionUserInfo[0] = user.getUsername();
+		sessionUserInfo[1] = user.getPassword();
+		MenuDriver.main(sessionUserInfo);
 	}
 
 	public static void viewAccounts() {
-
+		// CHECKLIST
+		// get session user
+		logger.info("Beginning to check user balance");
+		user = userService.getUserByUsername(user.getUsername());
+		// retrieve all accounts
+		List<Account> masterList = accountService.getAllAccounts();
+		
+		// do route guarding here (must be EMPLOYEE or ADMIN access only)
+		if (masterList == null) {
+			throw new BankException("list returned empty");
+		} else if (user.getRole().getRoleType().equals("CUSTOMER")) {
+			logger.warn("Unauthorized user. User: " + user.getUsername() + ", " + user.getRole().getRoleType() + ".",
+					new BankException());
+		} else {
+			//populate table after route guarding
+			// print table headers
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", "ACCOUNT_ID", "BALANCE", "STATUS", "TYPE",
+					"OWNER", "CREATION_DATE");
+			System.out.println();
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			for (Account a : masterList) {
+				//find owner of account
+				int ownerId = accountService.findOwnerIdOfAccount(a);
+				// print table content
+				System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", a.getAccountId(), a.getBalance(),
+						a.getStatus().getStatus(), a.getType().getType(), ownerId, a.getCreationDate());
+				System.out.println();
+			}
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			// run loop to check if user q button
+			boolean isExited = false;
+			while (isExited == false) {
+				System.out.print("Press [Q] at any time to return to the main menu: ");
+				char exitKey = scanner.next().charAt(0);
+				if (exitKey == 'q' || exitKey == 'Q') {
+					logger.info("User has pressed the quit key.");
+					isExited = true;
+				}
+			}
+			// if q-> return to main menu
+			logger.info("User is now ready to return to main menu.");
+			String[] sessionUserInfo = new String[10];
+			sessionUserInfo[0] = user.getUsername();
+			sessionUserInfo[1] = user.getPassword();
+			MenuDriver.main(sessionUserInfo);
+		}
 	}
 
 	public static void viewCustomers() {

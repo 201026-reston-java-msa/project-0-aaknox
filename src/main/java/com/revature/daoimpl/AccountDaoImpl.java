@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -80,13 +81,37 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public List<Account> selectAllAccounts() {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info("in account dao impl selectAllAccounts method");
+		List<Account> accounts = new ArrayList<Account>();
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+
+			String sql = "SELECT * FROM accounts ORDER BY account_id;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Account account = new Account();
+				account.setAccountId(rs.getInt("account_id"));
+				account.setBalance(rs.getDouble("account_balance"));
+				account.setStatus(new AccountStatus(rs.getInt("account_id"), rs.getString("account_status")));
+				account.setType(new AccountType(rs.getInt("account_id"), rs.getString("account_type")));
+				String date = rs.getDate(6).toString();
+				account.setCreationDate(LocalDate.parse(date));
+				accounts.add(account);
+			}
+
+			logger.info("Sucessful extraction of the account list.");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return accounts;
 	}
 
 	@Override
-	public Account selectAccountById(int id) {
-		System.out.println("in account dao impl selectAccountById method");
+	public Account selectAccountByAccountId(int id) {
+		logger.info("in account dao impl selectAccountById method");
 		Account account = new Account();
 		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
 
@@ -106,7 +131,7 @@ public class AccountDaoImpl implements AccountDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		logger.info("Account found: " + account);
 		return account;
 	}
 
@@ -124,8 +149,26 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public List<Account> selectAllAccountsByUserID(int userid) {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info("Now searching for all account under user id: " + userid);
+		List<Account> accs = new ArrayList<Account>();
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+
+			String sql = "SELECT * FROM accounts WHERE account_user_id = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, userid);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()) {
+				String date = rs.getDate(6).toString();
+				accs.add(new Account(rs.getInt(1), rs.getDouble(2), new AccountStatus(rs.getInt(1), rs.getString(3)),
+						new AccountType(rs.getInt(1), rs.getString(4)), LocalDate.parse(date)));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return accs;
 	}
 
 	@Override
@@ -162,6 +205,25 @@ public class AccountDaoImpl implements AccountDao {
 	public void deleteAccountById(int id) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int selectUserIdByAccountId(int accId) {
+		int ownerId = 0;
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+
+			String sql = "SELECT * FROM accounts WHERE account_id = " + accId + ";";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				ownerId = rs.getInt(5);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ownerId;
 	}
 
 }
