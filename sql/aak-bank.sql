@@ -1,78 +1,43 @@
 /*******************************************************************************
-   AAK Bank Database - Version 1.0
+   AAK Bank Database - Version 1.1
    Script: aak-bank.sql
    Description: Creates and populates the AAK Bank database.
    DB Server: PostgreSql
    Author: Azhya Knox
 
-   Origin Date: 10/17/2020
+   Origin Date: 11/04/2020
    Summary:
     - Inital setup of database for Revature Banking Project
+    - Added function that executes a transfer request for API
 ********************************************************************************/
+/*******************************
+ * 		Drop Tables and Functions
+ *******************************/
+DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS bank_roles;
+DROP TABLE IF EXISTS account_status;
+DROP TABLE IF EXISTS account_types;
+DROP FUNCTION IF EXISTS transfer_request();
 /**************************************************
- 				Create Stored Procedures
+ 				Create Functions
 ***************************************************/
---PROCEDURE MAY BE DEPRECIATED
---CREATE PROCEDURE transfer_request(
---	senderAccountId int,
---	recieverAccountId int,
---	amount decimal(1000, 2)
---)
---LANGUAGE plpgsql
---AS $$
---BEGIN 
---	--substract amount from sender account balance
---	UPDATE accounts 
---	SET account_balance = account_balance - amount 
---	WHERE account_id = senderAccountId;
---	--add amount to receiver account balance
---	UPDATE accounts 
---	SET account_balance = account_balance + amount 
---	WHERE account_id = recieverAccountId;
---	--save changes
---	COMMIT;
---END
---$$;
-
 CREATE OR REPLACE FUNCTION transfer_request(senderAccountId integer, recieverAccountId integer, amount decimal(15, 2)) 
 RETURNS void 
 LANGUAGE plpgsql
 AS $func$
-    BEGIN
-		--substract amount from sender account balance
-		UPDATE accounts SET account_balance = account_balance - amount WHERE account_id = senderAccountId;
-		--add amount to receiver account balance
-		UPDATE accounts SET account_balance = account_balance + amount WHERE account_id = recieverAccountId;
-    END
-    $func$;
-   
-SELECT * FROM accounts;
-SELECT transfer_request(1, 2, 20);
+BEGIN
+--substract amount from sender account balance
+UPDATE accounts SET account_balance = account_balance - amount WHERE account_id = senderAccountId;
+--add amount to receiver account balance
+UPDATE accounts SET account_balance = account_balance + amount WHERE account_id = recieverAccountId;
+END
+$func$;
 
 /**************************************************
  				Create Tables
 ***************************************************/
 
-CREATE TABLE account_types(
-	type_id INT PRIMARY KEY, 
-	type_name VARCHAR(50) NOT NULL
-);
-CREATE TABLE account_status(
-	status_id INT PRIMARY KEY, 
-	status_state VARCHAR(50) NOT NULL
-);
-CREATE TABLE bank_roles(
-	role_Type varchar(30) NOT NULL,
-	role_id INT PRIMARY KEY
-);
-CREATE TABLE accounts(
-	account_id SERIAL PRIMARY KEY,
-	account_balance DECIMAL(15, 2) NOT NULL,
-	account_status VARCHAR(30),
-	account_type VARCHAR(30),
-	account_user_id INT,
-	account_creationDate DATE
-);
 CREATE TABLE users (
 	user_id SERIAL PRIMARY KEY,
 	username VARCHAR(30) UNIQUE NOT NULL,
@@ -83,6 +48,49 @@ CREATE TABLE users (
 	user_roleType VARCHAR(30) NOT NULL
 );
 
+CREATE TABLE accounts(
+	account_id SERIAL PRIMARY KEY,
+	account_balance DECIMAL(15, 2) NOT NULL,
+	account_status VARCHAR(30),
+	account_type VARCHAR(30),
+	account_user_id INT,
+	account_creationDate DATE
+);
+--USER ID IS FOREIGN KEY IN ACCOUNTS TABLE
+ALTER TABLE accounts
+ADD CONSTRAINT fk_constraint_accountsToUsers
+FOREIGN KEY (account_user_id)
+REFERENCES users(user_id);
+
+CREATE TABLE account_types(
+	type_id INT PRIMARY KEY, 
+	type_name VARCHAR(50) NOT NULL
+);
+--ACCOUNT ID IS FOREIGN KEY IN ACCOUNT_TYPES TABLE
+ALTER TABLE account_types
+ADD CONSTRAINT fk_constraint_accountTypesToAccounts
+FOREIGN KEY (type_id)
+REFERENCES accounts(account_id);
+
+CREATE TABLE account_status(
+	status_id INT PRIMARY KEY, 
+	status_state VARCHAR(50) NOT NULL
+);
+--ACCOUNT ID IS FOREIGN KEY IN ACCOUNT_STATUS TABLE
+ALTER TABLE account_status
+ADD CONSTRAINT fk_constraint_accountStatusToAccounts
+FOREIGN KEY (status_id)
+REFERENCES accounts(account_id);
+
+CREATE TABLE bank_roles(
+	role_Type varchar(30) NOT NULL,
+	role_id INT PRIMARY KEY
+);
+--USER ID IS FOREIGN KEY IN BANK_ROLES TABLE
+ALTER TABLE bank_roles
+ADD CONSTRAINT fk_constraint_bankRolesToUsers
+FOREIGN KEY (role_id)
+REFERENCES users (user_id);
 /**************************************************
  				Populate Tables
 ***************************************************/
@@ -104,7 +112,6 @@ INSERT INTO accounts(account_type, account_status, account_balance, account_crea
 UPDATE accounts SET account_user_id = 3 WHERE account_id = 1;
 UPDATE accounts SET account_user_id = 3 WHERE account_id = 2;
 UPDATE accounts SET account_user_id = 3 WHERE account_id = 3;
---UPDATE accounts SET account_creationdate = '2020-10-18 14:15:39' WHERE account_id = 4;
 
 INSERT INTO bank_roles (role_id, role_type) VALUES (1, 'ADMIN');
 INSERT INTO bank_roles (role_id, role_type) VALUES (2, 'EMPLOYEE');
@@ -119,42 +126,11 @@ INSERT INTO account_status (status_id, status_state) VALUES(3, 'OPEN');
 INSERT INTO account_types (type_id, type_name) VALUES(1, 'CHECKING');
 INSERT INTO account_types (type_id, type_name) VALUES(2, 'CHECKING');
 INSERT INTO account_types (type_id, type_name) VALUES(3, 'SAVINGS');
-/**************************************************
- 				Create Constraints
- **************************************************/
---BASIC SYNTAX-------
---ALTER TABLE child_table
---ADD CONSTRAINT fk_constraint_childToParent
---FOREIGN KEY (fk_columns)
---REFERENCES parent_table(parent_key_columns)
---ON DELETE CASCADE;
---END OF SYNTAX-------
-
---Role_id = child/foreign key of user_id
-ALTER TABLE bank_roles
-ADD CONSTRAINT fk_constraint_bankRolesToUsers
-FOREIGN KEY (role_id)
-REFERENCES users (user_id);
---status_id = child/foreign key of account_id
-ALTER TABLE account_status
-ADD CONSTRAINT fk_constraint_accountStatusToAccounts
-FOREIGN KEY (status_id)
-REFERENCES accounts(account_id);
---type_id = child/foreign key of account_id
-ALTER TABLE account_types
-ADD CONSTRAINT fk_constraint_accountTypesToAccounts
-FOREIGN KEY (type_id)
-REFERENCES accounts(account_id);
-
---USER ID IS FOREIGN KEY IN ACCOUNTS TABLE
-ALTER TABLE accounts
-ADD CONSTRAINT fk_constraint_accountsToUsers
-FOREIGN KEY (account_user_id)
-REFERENCES users(user_id);
 
 /*****************************************************************
  					SELECT/DELETE/UPDATE STATEMENTS
  *****************************************************************/
+--UPDATE accounts SET account_creationdate = '2020-10-18 14:15:39' WHERE account_id = 4;
 --INSERT INTO accounts(account_type, account_status, account_balance, account_user_id) VALUES('CHECKING','OPEN', 150.28, 5);
 --SELECT * FROM accounts WHERE account_id = 1;
 --UPDATE account_status SET status_state = 'OPEN' WHERE status_id = 3;
@@ -169,26 +145,12 @@ REFERENCES users(user_id);
 --DELETE FROM bank_roles WHERE role_id = 6;
 --DELETE FROM users WHERE user_id = 6;
 --UPDATE accounts SET account_user_id = (SELECT u2.user_id FROM users u2 WHERE u2.username = 'trigga') WHERE account_id = 5;
+--UPDATE accounts SET account_balance = 1500 WHERE account_id = 1;
 /*******************************
  * SELECT ALL STATEMENTS
  *******************************/
-UPDATE accounts SET account_balance = 1500 WHERE account_id = 1;
 SELECT * FROM users ORDER BY user_id;
 SELECT * FROM accounts ORDER BY account_id;
 SELECT * FROM bank_roles;
 SELECT * FROM account_types;
 SELECT * FROM account_status;
-
-/*******************************
- * CALL FUNCTIONS
- *******************************/
---DEBUG: function executes but no changes to accounts table
-
-/*******************************
- * 		Drop Tables
- *******************************/
-DROP TABLE IF EXISTS accounts;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS bank_roles;
-DROP TABLE IF EXISTS account_status;
-DROP TABLE IF EXISTS account_types;
