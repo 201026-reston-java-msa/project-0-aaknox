@@ -25,9 +25,13 @@ public interface AccountDao {
 
 	// UPDATE
 	public void updateAccountBalance(double balance, int id);
+	
+	public void updateAccountStatus(String status, int id);
 
 	public void updateAccount(Account enteredAccount, int id);
+	
+	public void transferRequestFunc(double amount, int fromId, int toId);
 
 	// DELETE
-	public void deleteAccountById(int id);
+	public void deleteAccountByAccountId(int id);
 }

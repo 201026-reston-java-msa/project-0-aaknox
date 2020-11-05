@@ -1,5 +1,6 @@
 package com.revature.daoimpl;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -143,17 +144,33 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public List<Account> selectAllAccountsByStatus(String status) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Account> accs = new ArrayList<Account>();
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+
+			String sql = "SELECT * FROM accounts WHERE account_status = ? ORDER BY account_id;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, status);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()) {
+				String date = rs.getDate(6).toString();
+				accs.add(new Account(rs.getInt(1), rs.getDouble(2), new AccountStatus(rs.getInt(1), rs.getString(3)),
+						new AccountType(rs.getInt(1), rs.getString(4)), LocalDate.parse(date)));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return accs;
 	}
 
 	@Override
 	public List<Account> selectAllAccountsByUserID(int userid) {
-		logger.info("Now searching for all account under user id: " + userid);
 		List<Account> accs = new ArrayList<Account>();
 		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
 
-			String sql = "SELECT * FROM accounts WHERE account_user_id = ?;";
+			String sql = "SELECT * FROM accounts WHERE account_user_id = ? ORDER BY account_id;";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, userid);
 			ResultSet rs = ps.executeQuery();
@@ -202,8 +219,28 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public void deleteAccountById(int id) {
-		// TODO Auto-generated method stub
+	public void deleteAccountByAccountId(int id) {
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+			// delete from child tables to accounts table first
+			String sql = "DELETE FROM account_status WHERE status_id = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.executeUpdate();
+
+			sql = "DELETE FROM account_types WHERE type_id = ?;";
+			PreparedStatement ps2 = conn.prepareStatement(sql);
+			ps2.setInt(1, id);
+			ps2.executeUpdate();
+
+			// now from accounts table --> delete account
+			sql = "DELETE FROM accounts WHERE account_id = ?;";
+			PreparedStatement ps3 = conn.prepareStatement(sql);
+			ps3.setInt(1, id); // 1st "?"
+			ps3.executeUpdate();
+
+		} catch (SQLException e) {
+			logger.warn("SQL statement failed. Stack Trace: ", e);
+		}
 
 	}
 
@@ -224,6 +261,53 @@ public class AccountDaoImpl implements AccountDao {
 			e.printStackTrace();
 		}
 		return ownerId;
+	}
+
+	@Override
+	public void transferRequestFunc(double amount, int fromId, int toId) {
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+			logger.debug("TESTING FUNCTION...");
+			String sql = "SELECT transfer_request(?, ?, ?);";
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setInt(1, fromId);
+			ps.setInt(2, toId);
+			//convert from double to big decimal (an acceptable of SQL NUMERIC type)
+			ps.setBigDecimal(3, BigDecimal.valueOf(amount));
+			try {
+				ps.executeQuery();
+			} catch (Exception e) {
+				logger.error("PreparedStatement failed here. Stack Trace: ", e);
+			}
+			logger.info("Transfer request is completed");
+
+		} catch (SQLException e) {
+			logger.warn("Error in SQL execution to update balance. Stack Trace: ", e);
+		}
+		
+	}
+
+	@Override
+	public void updateAccountStatus(String status, int id) {
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+			// update status table first
+			String sql = "UPDATE account_status SET status_state = ? WHERE status_id = ?";
+			PreparedStatement ps0 = conn.prepareStatement(sql);
+			ps0.setString(1, status);
+			ps0.setInt(2, id);
+			ps0.executeUpdate();
+			
+			//now updating accounts table
+			sql = "UPDATE accounts SET account_status = ?  WHERE account_id = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, status);
+			ps.setInt(2, id);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			logger.warn("Error in SQL execution to update status. Stack Trace: ", e);
+		}
+		
 	}
 
 }

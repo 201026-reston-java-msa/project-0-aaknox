@@ -9,6 +9,45 @@
    Summary:
     - Inital setup of database for Revature Banking Project
 ********************************************************************************/
+/**************************************************
+ 				Create Stored Procedures
+***************************************************/
+--PROCEDURE MAY BE DEPRECIATED
+--CREATE PROCEDURE transfer_request(
+--	senderAccountId int,
+--	recieverAccountId int,
+--	amount decimal(1000, 2)
+--)
+--LANGUAGE plpgsql
+--AS $$
+--BEGIN 
+--	--substract amount from sender account balance
+--	UPDATE accounts 
+--	SET account_balance = account_balance - amount 
+--	WHERE account_id = senderAccountId;
+--	--add amount to receiver account balance
+--	UPDATE accounts 
+--	SET account_balance = account_balance + amount 
+--	WHERE account_id = recieverAccountId;
+--	--save changes
+--	COMMIT;
+--END
+--$$;
+
+CREATE OR REPLACE FUNCTION transfer_request(senderAccountId integer, recieverAccountId integer, amount decimal(15, 2)) 
+RETURNS void 
+LANGUAGE plpgsql
+AS $func$
+    BEGIN
+		--substract amount from sender account balance
+		UPDATE accounts SET account_balance = account_balance - amount WHERE account_id = senderAccountId;
+		--add amount to receiver account balance
+		UPDATE accounts SET account_balance = account_balance + amount WHERE account_id = recieverAccountId;
+    END
+    $func$;
+   
+SELECT * FROM accounts;
+SELECT transfer_request(1, 2, 20);
 
 /**************************************************
  				Create Tables
@@ -28,7 +67,7 @@ CREATE TABLE bank_roles(
 );
 CREATE TABLE accounts(
 	account_id SERIAL PRIMARY KEY,
-	account_balance DECIMAL(1000, 2) NOT NULL,
+	account_balance DECIMAL(15, 2) NOT NULL,
 	account_status VARCHAR(30),
 	account_type VARCHAR(30),
 	account_user_id INT,
@@ -133,11 +172,17 @@ REFERENCES users(user_id);
 /*******************************
  * SELECT ALL STATEMENTS
  *******************************/
+UPDATE accounts SET account_balance = 1500 WHERE account_id = 1;
+SELECT * FROM users ORDER BY user_id;
+SELECT * FROM accounts ORDER BY account_id;
+SELECT * FROM bank_roles;
 SELECT * FROM account_types;
 SELECT * FROM account_status;
-SELECT * FROM accounts;
-SELECT * FROM users;
-SELECT * FROM bank_roles;
+
+/*******************************
+ * CALL FUNCTIONS
+ *******************************/
+--DEBUG: function executes but no changes to accounts table
 
 /*******************************
  * 		Drop Tables

@@ -59,7 +59,7 @@ public class Business {
 			viewAccounts();
 			break;
 		case 7:
-			viewCustomers();
+			viewUsers();
 			break;
 		case 8:
 			viewPendingApplications();
@@ -68,7 +68,7 @@ public class Business {
 			authorizeApplications();
 			break;
 		case 10:
-			cancelAccount();
+			removeAccount();
 			break;
 		case 11:
 			signOut();
@@ -458,8 +458,7 @@ public class Business {
 				// check if fromAccount has enough money
 				if (afterFromAccountAmt >= 0) {
 					logger.info("Processing transfer request now.");
-					accountService.makeWithdraw(transferAmt, fromAccountId);
-					accountService.makeDeposit(transferAmt, toAccountId);
+					accountService.makeTransfer(transferAmt, fromAccountId, toAccountId);
 					logger.info("Transfer request to database completed.");
 					isOP = false;
 				} else {
@@ -482,13 +481,12 @@ public class Business {
 	}
 
 	public static void viewAccounts() {
-		// CHECKLIST
 		// get session user
-		logger.info("Beginning to check user balance");
+		logger.info("Loading account master list.");
 		user = userService.getUserByUsername(user.getUsername());
 		// retrieve all accounts
 		List<Account> masterList = accountService.getAllAccounts();
-		
+
 		// do route guarding here (must be EMPLOYEE or ADMIN access only)
 		if (masterList == null) {
 			throw new BankException("list returned empty");
@@ -496,7 +494,7 @@ public class Business {
 			logger.warn("Unauthorized user. User: " + user.getUsername() + ", " + user.getRole().getRoleType() + ".",
 					new BankException());
 		} else {
-			//populate table after route guarding
+			// populate table after route guarding
 			// print table headers
 			System.out.println(
 					"+----------------------------------------------------------------------------------------------------------------+");
@@ -506,7 +504,7 @@ public class Business {
 			System.out.println(
 					"+----------------------------------------------------------------------------------------------------------------+");
 			for (Account a : masterList) {
-				//find owner of account
+				// find owner of account
 				int ownerId = accountService.findOwnerIdOfAccount(a);
 				// print table content
 				System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", a.getAccountId(), a.getBalance(),
@@ -534,19 +532,247 @@ public class Business {
 		}
 	}
 
-	public static void viewCustomers() {
+	public static void viewUsers() {
+		// get session user
+		logger.info("Loading user master list.");
+		user = userService.getUserByUsername(user.getUsername());
+		// retrieve all users
+		List<User> masterList = userService.getAllUsers();
 
+		// do route guarding here (must be EMPLOYEE or ADMIN access only)
+		if (masterList == null) {
+			throw new BankException("list returned empty");
+		} else if (user.getRole().getRoleType().equals("CUSTOMER")) {
+			logger.warn("Unauthorized user. User: " + user.getUsername() + ", " + user.getRole().getRoleType() + ".",
+					new BankException());
+		} else {
+			// populate table after route guarding
+			// print table headers
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-5s |", "USER_ID", "USERNAME", "PASSWORD",  "FIRST_NAME", "LAST_NAME",
+					"EMAIL", "ROLE", "NUM_OF_ACCOUNTS");
+			System.out.println();
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			for (User u : masterList) {
+				// find all accounts for each user
+				List<Account> accounts = accountService.viewAccountsByUserId(u.getUserId());
+				int numOfAccounts = 0;
+				
+				if(accounts == null) {
+					numOfAccounts = 0;
+				}else {
+					numOfAccounts = accounts.size();
+				}
+				// print table content
+				System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-20s %-5s |", u.getUserId(), u.getUsername(),
+						u.getPassword(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getRole().getRoleType(), numOfAccounts);
+				System.out.println();
+			}
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			// run loop to check if user q button
+			boolean isExited = false;
+			while (isExited == false) {
+				System.out.print("Press [Q] at any time to return to the main menu: ");
+				char exitKey = scanner.next().charAt(0);
+				if (exitKey == 'q' || exitKey == 'Q') {
+					logger.info("User has pressed the quit key.");
+					isExited = true;
+				}
+			}
+			// if q-> return to main menu
+			logger.info("User is now ready to return to main menu.");
+			String[] sessionUserInfo = new String[10];
+			sessionUserInfo[0] = user.getUsername();
+			sessionUserInfo[1] = user.getPassword();
+			MenuDriver.main(sessionUserInfo);
+		}
 	}
 
 	public static void viewPendingApplications() {
-
+		logger.info("Gathering pending applications...");
+		//get session user
+		user = userService.getUserByUsername(user.getUsername());
+		// check to see if session has more than one account
+		List<Account> accounts = accountService.viewAllAccountsByStatus("PENDING");
+		// if zero--> throw exception and return to main menu
+		if (accounts == null) {
+			throw new BankException("list returned empty");
+		} else if (user.getRole().getRoleType().equals("CUSTOMER")) {
+			logger.warn("Unauthorized user. User: " + user.getUsername() + ", " + user.getRole().getRoleType() + ".",
+					new BankException());
+		}else {
+			// if one or more--> populate account table
+			// print table headers
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", "ACCOUNT_ID", "BALANCE", "STATUS", "TYPE",
+					"OWNER", "CREATION_DATE");
+			System.out.println();
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			for (Account a : accounts) {
+				// print table content
+				System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", a.getAccountId(), a.getBalance(),
+						a.getStatus().getStatus(), a.getType().getType(), user.getUserId(), a.getCreationDate());
+				System.out.println();
+			}
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			// run loop to check if user q button
+			boolean isExited = false;
+			while (isExited == false) {
+				System.out.print("Press [Q] at any time to return to the main menu: ");
+				char exitKey = scanner.next().charAt(0);
+				if (exitKey == 'q' || exitKey == 'Q') {
+					logger.info("User has pressed the quit key.");
+					isExited = true;
+				}
+			}
+			// if q-> return to main menu
+			logger.info("User is now ready to return to main menu.");
+			String[] sessionUserInfo = new String[10];
+			sessionUserInfo[0] = user.getUsername();
+			sessionUserInfo[1] = user.getPassword();
+			MenuDriver.main(sessionUserInfo);
+		}
 	}
 
 	public static void authorizeApplications() {
-
+		logger.info("Opening authorization request.");
+		//get session user
+		user = userService.getUserByUsername(user.getUsername());
+		//check if user is admin level
+		if(!user.getRole().getRoleType().equals("ADMIN")) {
+			//check failed - throw bank exception
+			logger.warn("Unauthorized user. User: " + user.getUsername() + ", " + user.getRole().getRoleType() + ".");
+			throw new BankException("Unauthorized user.");
+		}else {
+			//check passed - populate the pending account into a list
+			List<Account> accounts = accountService.viewAllAccountsByStatus("PENDING");
+			//show table
+			// print table headers
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", "ACCOUNT_ID", "BALANCE", "STATUS", "TYPE",
+					"OWNER", "CREATION_DATE");
+			System.out.println();
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			for (Account a : accounts) {
+				// find owner of account
+				int ownerId = accountService.findOwnerIdOfAccount(a);
+				// print table content
+				System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", a.getAccountId(), a.getBalance(),
+						a.getStatus().getStatus(), a.getType().getType(), ownerId, a.getCreationDate());
+				System.out.println();
+			}
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			//ask admin for account number they want to change
+			System.out.println();
+			System.out.print("Enter the account ID number that needs a change of status: ");
+			int desiredAccountNum = scanner.nextInt();
+			//ask admin if account is approved or denied
+			System.out.println("\nAuthorization Options:");
+			System.out.println("1 - Approve application (update to OPEN status)");
+			System.out.println("2 - Deny application (update to CLOSED status)");
+			System.out.print("-----------Your pick: ");
+			int authorizePick = scanner.nextInt();
+			switch (authorizePick) {
+			case 1:
+				//if approved, update account to OPEN status
+				accountService.modifyAccountStatus("OPEN", desiredAccountNum);
+				break;
+			case 2:
+				//if denied, update account to CLOSED status
+				accountService.modifyAccountStatus("CLOSED", desiredAccountNum);
+				break;
+			default:
+				logger.warn("invalid authorization code entered.");
+				break;
+			}
+			//show success message
+			logger.info("Application status change request is complete.");
+			//return to main menu
+			String[] sessionUserInfo = new String[10];
+			sessionUserInfo[0] = user.getUsername();
+			sessionUserInfo[1] = user.getPassword();
+			MenuDriver.main(sessionUserInfo);
+		}
 	}
 
-	public static void cancelAccount() {
-
+	public static void removeAccount() {
+		logger.info("Beginning cancellation request.");
+		//get session user
+		user = userService.getUserByUsername(user.getUsername());
+		//check if user is admin
+		if(!user.getRole().getRoleType().equals("ADMIN")) {
+			//check failed - throw bank exception
+			logger.warn("Unauthorized user- Username: " + user.getUsername() + ", " + user.getRole().getRoleType());
+			throw new BankException("Unauthorized user for this request.");
+		}else {
+			//check passed - populate master accounts table
+			List<Account> masterList = accountService.getAllAccounts();
+			// print table headers
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", "ACCOUNT_ID", "BALANCE", "STATUS", "TYPE",
+					"OWNER", "CREATION_DATE");
+			System.out.println();
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			for (Account a : masterList) {
+				// find owner of account
+				int ownerId = accountService.findOwnerIdOfAccount(a);
+				// print table content
+				System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", a.getAccountId(), a.getBalance(),
+						a.getStatus().getStatus(), a.getType().getType(), ownerId, a.getCreationDate());
+				System.out.println();
+			}
+			System.out.println(
+					"+----------------------------------------------------------------------------------------------------------------+");
+			//ask admin what account they wish to remove
+			System.out.println();
+			System.out.print("Enter the account ID number that you to remove from the API: ");
+			int desiredAccountNum = scanner.nextInt();
+			//get desired account info
+			Account desiredAcc = accountService.getAccountByAccountId(desiredAccountNum);
+			//check if account has CLOSED status
+			if(desiredAcc.getStatus().getStatus().equals("CLOSED")) {
+				//check 2 passed - remove account
+				accountService.removeAccountByAccountId(desiredAccountNum);
+			}else {
+				//check 2 failed - tell admin that account status must be changed first
+				System.out.println("This account is currently listed as " + desiredAcc.getStatus().getStatus() + ".");
+				//ask admin if they want the status changed
+				System.out.print("Do you wish to change this account's status to CLOSED? [Y/N]: ");
+				char answer = scanner.next().charAt(0);
+				switch (answer) {
+				case 'Y':
+				case 'y':
+					//if YES - change status to CLOSED
+					accountService.modifyAccountStatus("CLOSED", desiredAccountNum);
+					//system now removes the account from API
+					accountService.removeAccountByAccountId(desiredAccountNum);
+					break;
+				case 'N':
+				case 'n':
+				default:
+					//if NO or anything else - log warning here
+					logger.warn("Admin declined to changed the account status of account ID number " + desiredAccountNum + " at this time.");
+					break;
+				}
+			}
+			//show success message
+			logger.info("Account removal request finished.");
+			//return to main menu
+			String[] sessionUserInfo = new String[10];
+			sessionUserInfo[0] = user.getUsername();
+			sessionUserInfo[1] = user.getPassword();
+			MenuDriver.main(sessionUserInfo);
+		}
 	}
 }

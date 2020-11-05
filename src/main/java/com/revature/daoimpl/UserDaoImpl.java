@@ -63,7 +63,7 @@ public class UserDaoImpl implements UserDao {
 	public List<User> selectAllUsers() {
 		List<User> userList = new ArrayList<User>();
 		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
-			String sql = "SELECT * FROM users;";
+			String sql = "SELECT * FROM users ORDER BY user_id;";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 
@@ -71,8 +71,6 @@ public class UserDaoImpl implements UserDao {
 				userList.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6), new BankRole(rs.getInt(1), rs.getString(7)), new ArrayList<Account>()));
 			}
-
-			logger.info("User list has been successfully populated");
 		} catch (SQLException e) {
 			logger.warn("SQL statement failed to execute in UserDaoImpl class::selectAllUsers method. Stack Trace: ",
 					e);

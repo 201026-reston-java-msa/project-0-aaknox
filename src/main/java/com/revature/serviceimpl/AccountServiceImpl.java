@@ -75,4 +75,25 @@ public class AccountServiceImpl implements AccountService {
 		return ownerid;
 	}
 
+	@Override
+	public void makeTransfer(double amount, int fromId, int toId) {
+		accountDao.transferRequestFunc(amount, fromId, toId);
+	}
+
+	@Override
+	public List<Account> viewAllAccountsByStatus(String status) {
+		List<Account> accList = accountDao.selectAllAccountsByStatus(status);
+		return accList;
+	}
+
+	@Override
+	public void modifyAccountStatus(String status, int id) {
+		accountDao.updateAccountStatus(status, id);
+	}
+
+	@Override
+	public void removeAccountByAccountId(int id) {
+		accountDao.deleteAccountByAccountId(id);
+	}
+
 }
