@@ -21,14 +21,10 @@ public interface AccountDao {
 
 	public List<Account> selectAllAccountsByUserID(int userid);
 
-	public List<Account> selectAccountsByType(String type);
-
 	// UPDATE
 	public void updateAccountBalance(double balance, int id);
 	
 	public void updateAccountStatus(String status, int id);
-
-	public void updateAccount(Account enteredAccount, int id);
 	
 	public void transferRequestFunc(double amount, int fromId, int toId);
 

@@ -127,6 +127,14 @@ INSERT INTO account_types (type_id, type_name) VALUES(1, 'CHECKING');
 INSERT INTO account_types (type_id, type_name) VALUES(2, 'CHECKING');
 INSERT INTO account_types (type_id, type_name) VALUES(3, 'SAVINGS');
 
+/*******************************
+ * SELECT ALL STATEMENTS
+ *******************************/
+SELECT * FROM users ORDER BY user_id;
+SELECT * FROM accounts ORDER BY account_id;
+SELECT * FROM bank_roles;
+SELECT * FROM account_types;
+SELECT * FROM account_status;
 /*****************************************************************
  					SELECT/DELETE/UPDATE STATEMENTS
  *****************************************************************/
@@ -146,11 +154,3 @@ INSERT INTO account_types (type_id, type_name) VALUES(3, 'SAVINGS');
 --DELETE FROM users WHERE user_id = 6;
 --UPDATE accounts SET account_user_id = (SELECT u2.user_id FROM users u2 WHERE u2.username = 'trigga') WHERE account_id = 5;
 --UPDATE accounts SET account_balance = 1500 WHERE account_id = 1;
-/*******************************
- * SELECT ALL STATEMENTS
- *******************************/
-SELECT * FROM users ORDER BY user_id;
-SELECT * FROM accounts ORDER BY account_id;
-SELECT * FROM bank_roles;
-SELECT * FROM account_types;
-SELECT * FROM account_status;

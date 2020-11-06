@@ -111,6 +111,25 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
+	public int selectUserIdByAccountId(int accId) {
+		int ownerId = 0;
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+
+			String sql = "SELECT * FROM accounts WHERE account_id = " + accId + ";";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				ownerId = rs.getInt(5);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ownerId;
+	}
+	
+	@Override
 	public Account selectAccountByAccountId(int id) {
 		logger.info("in account dao impl selectAccountById method");
 		Account account = new Account();
@@ -189,12 +208,6 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public List<Account> selectAccountsByType(String type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void updateAccountBalance(double balance, int id) {
 		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
 
@@ -213,11 +226,52 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public void updateAccount(Account enteredAccount, int id) {
-		// TODO Auto-generated method stub
+	public void updateAccountStatus(String status, int id) {
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+			// update status table first
+			String sql = "UPDATE account_status SET status_state = ? WHERE status_id = ?";
+			PreparedStatement ps0 = conn.prepareStatement(sql);
+			ps0.setString(1, status);
+			ps0.setInt(2, id);
+			ps0.executeUpdate();
+			
+			//now updating accounts table
+			sql = "UPDATE accounts SET account_status = ?  WHERE account_id = ?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, status);
+			ps.setInt(2, id);
+			ps.executeUpdate();
 
+		} catch (SQLException e) {
+			logger.warn("Error in SQL execution to update status. Stack Trace: ", e);
+		}
+		
 	}
+	
+	@Override
+	public void transferRequestFunc(double amount, int fromId, int toId) {
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+			logger.debug("TESTING FUNCTION...");
+			String sql = "SELECT transfer_request(?, ?, ?);";
+			PreparedStatement ps = conn.prepareStatement(sql);
 
+			ps.setInt(1, fromId);
+			ps.setInt(2, toId);
+			//convert from double to big decimal (amount is of decimal datatype within database function)
+			ps.setBigDecimal(3, BigDecimal.valueOf(amount));
+			try {
+				ps.executeQuery();
+			} catch (Exception e) {
+				logger.error("PreparedStatement failed here. Stack Trace: ", e);
+			}
+			logger.info("Transfer request is completed");
+
+		} catch (SQLException e) {
+			logger.warn("Error in SQL execution to update balance. Stack Trace: ", e);
+		}
+		
+	}
+	
 	@Override
 	public void deleteAccountByAccountId(int id) {
 		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
@@ -243,71 +297,4 @@ public class AccountDaoImpl implements AccountDao {
 		}
 
 	}
-
-	@Override
-	public int selectUserIdByAccountId(int accId) {
-		int ownerId = 0;
-		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
-
-			String sql = "SELECT * FROM accounts WHERE account_id = " + accId + ";";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			
-			if (rs.next()) {
-				ownerId = rs.getInt(5);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return ownerId;
-	}
-
-	@Override
-	public void transferRequestFunc(double amount, int fromId, int toId) {
-		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
-			logger.debug("TESTING FUNCTION...");
-			String sql = "SELECT transfer_request(?, ?, ?);";
-			PreparedStatement ps = conn.prepareStatement(sql);
-
-			ps.setInt(1, fromId);
-			ps.setInt(2, toId);
-			//convert from double to big decimal (an acceptable of SQL NUMERIC type)
-			ps.setBigDecimal(3, BigDecimal.valueOf(amount));
-			try {
-				ps.executeQuery();
-			} catch (Exception e) {
-				logger.error("PreparedStatement failed here. Stack Trace: ", e);
-			}
-			logger.info("Transfer request is completed");
-
-		} catch (SQLException e) {
-			logger.warn("Error in SQL execution to update balance. Stack Trace: ", e);
-		}
-		
-	}
-
-	@Override
-	public void updateAccountStatus(String status, int id) {
-		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
-			// update status table first
-			String sql = "UPDATE account_status SET status_state = ? WHERE status_id = ?";
-			PreparedStatement ps0 = conn.prepareStatement(sql);
-			ps0.setString(1, status);
-			ps0.setInt(2, id);
-			ps0.executeUpdate();
-			
-			//now updating accounts table
-			sql = "UPDATE accounts SET account_status = ?  WHERE account_id = ?;";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, status);
-			ps.setInt(2, id);
-			ps.executeUpdate();
-
-		} catch (SQLException e) {
-			logger.warn("Error in SQL execution to update status. Stack Trace: ", e);
-		}
-		
-	}
-
 }

@@ -1419,3 +1419,314 @@ org.postgresql.util.PSQLException: ERROR: column "status_type" of relation "acco
 2020-11-04 22:36:00 INFO  Business:266 - Exiting current session
 2020-11-04 22:36:01 INFO  MainDriver:21 - This is an informational message from MainDriver.
 2020-11-04 22:36:03 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 08:48:41 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 08:48:45 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 08:48:47 INFO  Business:82 - Logging in existing user...
+2020-11-05 08:49:05 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:49:05 INFO  UserServiceImpl:64 - credentials match
+2020-11-05 08:49:06 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:49:06 INFO  Business:101 - User found in database: User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:49:26 INFO  MenuDriver:23 - You picked option: 1
+2020-11-05 08:49:27 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:49:27 INFO  Business:280 - Beginning a new account application.
+2020-11-05 08:49:39 INFO  AccountServiceImpl:18 - Adding account to database.
+2020-11-05 08:49:40 INFO  UserDaoImpl:40 - insert into account table complete
+2020-11-05 08:49:46 INFO  MenuDriver:23 - You picked option: 3
+2020-11-05 08:49:46 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:49:46 INFO  Business:339 - Beginning to check user balance
+2020-11-05 08:49:48 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:49:55 INFO  Business:370 - User has pressed the quit key.
+2020-11-05 08:49:55 INFO  Business:375 - User is now ready to return to main menu.
+2020-11-05 08:50:00 INFO  MenuDriver:23 - You picked option: 4
+2020-11-05 08:50:02 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:50:02 INFO  Business:384 - Beginning withdrawal request.
+2020-11-05 08:50:03 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:50:23 DEBUG Business:393 - Withdrawal request submitted: $10.0 to account number 1.
+ Requestor: customer001, Role: CUSTOMER
+2020-11-05 08:50:23 INFO  AccountServiceImpl:39 - Sending withdrawal request to the database.
+2020-11-05 08:50:23 INFO  UserDaoImpl:115 - in account dao impl selectAccountById method
+2020-11-05 08:50:25 INFO  UserDaoImpl:135 - Account found: Account [accountId=1, balance=1500.25, status=AccountStatus [statusId=1, status=OPEN], type=AccountType [typeId=1, type=CHECKING], creationDate=2017-01-15]
+2020-11-05 08:50:25 INFO  AccountServiceImpl:47 - New balance: 1490.25
+2020-11-05 08:50:25 INFO  AccountServiceImpl:48 - Updating account balance to account number 1
+2020-11-05 08:50:26 INFO  UserDaoImpl:207 - new balance is now set
+2020-11-05 08:50:26 INFO  Business:397 - Withdrawal request has been successfully submitted. Returning to main menu.
+2020-11-05 08:50:29 INFO  MenuDriver:23 - You picked option: 3
+2020-11-05 08:50:30 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:50:30 INFO  Business:339 - Beginning to check user balance
+2020-11-05 08:50:32 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:50:39 INFO  Business:370 - User has pressed the quit key.
+2020-11-05 08:50:39 INFO  Business:375 - User is now ready to return to main menu.
+2020-11-05 08:50:45 INFO  MenuDriver:23 - You picked option: 5
+2020-11-05 08:50:46 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:50:46 INFO  Business:407 - Beginning transfer request.
+2020-11-05 08:50:47 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:50:53 INFO  UserDaoImpl:115 - in account dao impl selectAccountById method
+2020-11-05 08:50:54 INFO  UserDaoImpl:135 - Account found: Account [accountId=1, balance=1490.25, status=AccountStatus [statusId=1, status=OPEN], type=AccountType [typeId=1, type=CHECKING], creationDate=2017-01-15]
+2020-11-05 08:50:54 DEBUG Business:415 - Testing ownership check.
+2020-11-05 08:50:54 DEBUG Business:418 - Index: Account [accountId=1, balance=1490.25, status=AccountStatus [statusId=1, status=OPEN], type=AccountType [typeId=1, type=CHECKING], creationDate=2017-01-15]
+2020-11-05 08:50:54 INFO  Business:420 - Account found in list: Account [accountId=1, balance=1490.25, status=AccountStatus [statusId=1, status=OPEN], type=AccountType [typeId=1, type=CHECKING], creationDate=2017-01-15]
+2020-11-05 08:50:54 DEBUG Business:427 - Check passed.
+2020-11-05 08:50:54 INFO  Business:435 - customer001, CUSTOMER is an authorized user for this type of request.
+2020-11-05 08:50:57 INFO  UserDaoImpl:115 - in account dao impl selectAccountById method
+2020-11-05 08:50:58 INFO  UserDaoImpl:135 - Account found: Account [accountId=2, balance=754.25, status=AccountStatus [statusId=2, status=OPEN], type=AccountType [typeId=2, type=CHECKING], creationDate=2018-12-22]
+2020-11-05 08:51:03 INFO  Business:460 - Processing transfer request now.
+2020-11-05 08:51:04 DEBUG UserDaoImpl:269 - TESTING FUNCTION...
+2020-11-05 08:51:04 INFO  UserDaoImpl:282 - Transfer request is completed
+2020-11-05 08:51:04 INFO  Business:462 - Transfer request to database completed.
+2020-11-05 08:51:11 INFO  MenuDriver:23 - You picked option: 3
+2020-11-05 08:51:12 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:51:12 INFO  Business:339 - Beginning to check user balance
+2020-11-05 08:51:13 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:51:32 INFO  Business:370 - User has pressed the quit key.
+2020-11-05 08:51:32 INFO  Business:375 - User is now ready to return to main menu.
+2020-11-05 08:51:38 INFO  MenuDriver:23 - You picked option: 11
+2020-11-05 08:51:39 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 08:51:39 INFO  Business:266 - Exiting current session
+2020-11-05 08:51:40 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 08:51:44 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 08:51:46 INFO  Business:82 - Logging in existing user...
+2020-11-05 08:51:57 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:51:57 INFO  UserServiceImpl:64 - credentials match
+2020-11-05 08:51:59 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:51:59 INFO  Business:101 - User found in database: User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:52:02 INFO  MenuDriver:23 - You picked option: 6
+2020-11-05 08:52:04 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:52:04 INFO  Business:485 - Loading account master list.
+2020-11-05 08:52:05 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:52:05 INFO  UserDaoImpl:85 - in account dao impl selectAllAccounts method
+2020-11-05 08:52:06 INFO  UserDaoImpl:104 - Sucessful extraction of the account list.
+2020-11-05 08:52:21 INFO  Business:522 - User has pressed the quit key.
+2020-11-05 08:52:21 INFO  Business:527 - User is now ready to return to main menu.
+2020-11-05 08:52:24 INFO  MenuDriver:23 - You picked option: 7
+2020-11-05 08:52:25 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:52:25 INFO  Business:537 - Loading user master list.
+2020-11-05 08:52:26 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:52:43 INFO  Business:581 - User has pressed the quit key.
+2020-11-05 08:52:43 INFO  Business:586 - User is now ready to return to main menu.
+2020-11-05 08:53:16 INFO  MenuDriver:23 - You picked option: 8
+2020-11-05 08:53:17 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:53:17 INFO  Business:595 - Gathering pending applications...
+2020-11-05 08:53:20 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:53:35 INFO  Business:630 - User has pressed the quit key.
+2020-11-05 08:53:35 INFO  Business:635 - User is now ready to return to main menu.
+2020-11-05 08:53:42 INFO  MenuDriver:23 - You picked option: 9
+2020-11-05 08:53:43 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:53:43 INFO  Business:644 - Opening authorization request.
+2020-11-05 08:53:44 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:53:58 INFO  Business:698 - Application status change request is complete.
+2020-11-05 08:54:04 INFO  MenuDriver:23 - You picked option: 6
+2020-11-05 08:54:06 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:54:06 INFO  Business:485 - Loading account master list.
+2020-11-05 08:54:07 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:54:07 INFO  UserDaoImpl:85 - in account dao impl selectAllAccounts method
+2020-11-05 08:54:08 INFO  UserDaoImpl:104 - Sucessful extraction of the account list.
+2020-11-05 08:54:20 INFO  Business:522 - User has pressed the quit key.
+2020-11-05 08:54:20 INFO  Business:527 - User is now ready to return to main menu.
+2020-11-05 08:54:24 INFO  MenuDriver:23 - You picked option: 10
+2020-11-05 08:54:25 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:54:25 INFO  Business:708 - Beginning cancellation request.
+2020-11-05 08:54:27 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:54:27 INFO  UserDaoImpl:85 - in account dao impl selectAllAccounts method
+2020-11-05 08:54:28 INFO  UserDaoImpl:104 - Sucessful extraction of the account list.
+2020-11-05 08:54:44 INFO  UserDaoImpl:115 - in account dao impl selectAccountById method
+2020-11-05 08:54:46 INFO  UserDaoImpl:135 - Account found: Account [accountId=4, balance=85.2, status=AccountStatus [statusId=4, status=CLOSED], type=AccountType [typeId=4, type=CHECKING], creationDate=2020-11-05]
+2020-11-05 08:54:47 INFO  Business:770 - Account removal request finished.
+2020-11-05 08:54:54 INFO  MenuDriver:23 - You picked option: 6
+2020-11-05 08:54:56 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:54:56 INFO  Business:485 - Loading account master list.
+2020-11-05 08:54:57 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:54:57 INFO  UserDaoImpl:85 - in account dao impl selectAllAccounts method
+2020-11-05 08:54:58 INFO  UserDaoImpl:104 - Sucessful extraction of the account list.
+2020-11-05 08:55:06 INFO  Business:522 - User has pressed the quit key.
+2020-11-05 08:55:06 INFO  Business:527 - User is now ready to return to main menu.
+2020-11-05 08:55:08 INFO  MenuDriver:23 - You picked option: 11
+2020-11-05 08:55:09 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 08:55:09 INFO  Business:266 - Exiting current session
+2020-11-05 08:55:10 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 08:55:20 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 09:15:34 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 09:15:40 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 09:15:42 INFO  Business:82 - Logging in existing user...
+2020-11-05 09:15:55 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:15:55 INFO  UserServiceImpl:64 - credentials match
+2020-11-05 09:16:00 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:16:00 INFO  Business:101 - User found in database: User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:16:06 INFO  MenuDriver:23 - You picked option: 6
+2020-11-05 09:16:08 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:16:08 INFO  Business:485 - Loading account master list.
+2020-11-05 09:16:10 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:16:10 INFO  UserDaoImpl:85 - in account dao impl selectAllAccounts method
+2020-11-05 09:16:13 INFO  UserDaoImpl:104 - Sucessful extraction of the account list.
+2020-11-05 09:16:33 INFO  Business:522 - User has pressed the quit key.
+2020-11-05 09:16:33 INFO  Business:527 - User is now ready to return to main menu.
+2020-11-05 09:16:36 INFO  MenuDriver:23 - You picked option: 11
+2020-11-05 09:16:45 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:16:45 INFO  Business:266 - Exiting current session
+2020-11-05 09:16:46 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 09:16:51 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 09:21:37 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 09:21:42 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 09:21:44 INFO  Business:82 - Logging in existing user...
+2020-11-05 09:22:07 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:22:07 INFO  UserServiceImpl:64 - credentials match
+2020-11-05 09:22:10 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:22:10 INFO  Business:101 - User found in database: User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:22:14 INFO  MenuDriver:23 - You picked option: 7
+2020-11-05 09:22:16 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:22:16 INFO  Business:537 - Loading user master list.
+2020-11-05 09:22:18 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:23:10 INFO  Business:581 - User has pressed the quit key.
+2020-11-05 09:23:10 INFO  Business:586 - User is now ready to return to main menu.
+2020-11-05 09:23:12 INFO  MenuDriver:23 - You picked option: 11
+2020-11-05 09:23:14 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:23:14 INFO  Business:266 - Exiting current session
+2020-11-05 09:23:15 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 09:23:20 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 09:25:44 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 09:25:53 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 09:25:55 INFO  Business:82 - Logging in existing user...
+2020-11-05 09:26:12 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:26:12 INFO  UserServiceImpl:64 - credentials match
+2020-11-05 09:26:15 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:26:15 INFO  Business:101 - User found in database: User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:26:24 INFO  MenuDriver:23 - You picked option: 7
+2020-11-05 09:26:26 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:26:26 INFO  Business:537 - Loading user master list.
+2020-11-05 09:26:28 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:27:15 INFO  Business:581 - User has pressed the quit key.
+2020-11-05 09:27:15 INFO  Business:586 - User is now ready to return to main menu.
+2020-11-05 09:27:19 INFO  MenuDriver:23 - You picked option: 11
+2020-11-05 09:27:26 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:27:26 INFO  Business:266 - Exiting current session
+2020-11-05 09:27:27 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 09:27:32 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 09:29:34 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 09:29:37 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 09:29:39 INFO  Business:82 - Logging in existing user...
+2020-11-05 09:29:58 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:29:58 INFO  UserServiceImpl:64 - credentials match
+2020-11-05 09:30:02 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:30:02 INFO  Business:101 - User found in database: User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:30:09 INFO  MenuDriver:23 - You picked option: 7
+2020-11-05 09:30:14 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:30:14 INFO  Business:537 - Loading user master list.
+2020-11-05 09:30:16 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:31:38 INFO  Business:581 - User has pressed the quit key.
+2020-11-05 09:31:38 INFO  Business:586 - User is now ready to return to main menu.
+2020-11-05 09:31:41 INFO  MenuDriver:23 - You picked option: 11
+2020-11-05 09:31:43 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 09:31:43 INFO  Business:266 - Exiting current session
+2020-11-05 09:31:44 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 09:31:50 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 14:07:54 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 14:08:05 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 14:08:07 INFO  Business:82 - Logging in existing user...
+2020-11-05 14:08:19 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:08:19 INFO  UserServiceImpl:64 - credentials match
+2020-11-05 14:08:21 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:08:21 INFO  Business:101 - User found in database: User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:08:26 INFO  MenuDriver:23 - You picked option: 6
+2020-11-05 14:08:28 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:08:28 INFO  Business:485 - Loading account master list.
+2020-11-05 14:08:30 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:08:30 INFO  UserDaoImpl:85 - in account dao impl selectAllAccounts method
+2020-11-05 14:08:32 INFO  UserDaoImpl:104 - Sucessful extraction of the account list.
+2020-11-05 14:08:42 INFO  Business:522 - User has pressed the quit key.
+2020-11-05 14:08:42 INFO  Business:527 - User is now ready to return to main menu.
+2020-11-05 14:08:50 INFO  MenuDriver:23 - You picked option: 11
+2020-11-05 14:08:52 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:08:52 INFO  Business:266 - Exiting current session
+2020-11-05 14:08:53 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 14:08:55 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 14:08:57 INFO  Business:82 - Logging in existing user...
+2020-11-05 14:09:09 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 14:09:09 INFO  UserServiceImpl:64 - credentials match
+2020-11-05 14:09:11 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 14:09:11 INFO  Business:101 - User found in database: User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 14:09:22 INFO  MenuDriver:23 - You picked option: 5
+2020-11-05 14:09:24 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 14:09:24 INFO  Business:407 - Beginning transfer request.
+2020-11-05 14:09:24 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 14:09:33 INFO  UserDaoImpl:134 - in account dao impl selectAccountById method
+2020-11-05 14:09:35 INFO  UserDaoImpl:154 - Account found: Account [accountId=1, balance=1465.25, status=AccountStatus [statusId=1, status=OPEN], type=AccountType [typeId=1, type=CHECKING], creationDate=2017-01-15]
+2020-11-05 14:09:35 DEBUG Business:415 - Testing ownership check.
+2020-11-05 14:09:35 DEBUG Business:418 - Index: Account [accountId=1, balance=1465.25, status=AccountStatus [statusId=1, status=OPEN], type=AccountType [typeId=1, type=CHECKING], creationDate=2017-01-15]
+2020-11-05 14:09:35 INFO  Business:420 - Account found in list: Account [accountId=1, balance=1465.25, status=AccountStatus [statusId=1, status=OPEN], type=AccountType [typeId=1, type=CHECKING], creationDate=2017-01-15]
+2020-11-05 14:09:35 DEBUG Business:427 - Check passed.
+2020-11-05 14:09:35 INFO  Business:435 - customer001, CUSTOMER is an authorized user for this type of request.
+2020-11-05 14:09:42 INFO  UserDaoImpl:134 - in account dao impl selectAccountById method
+2020-11-05 14:09:44 INFO  UserDaoImpl:154 - Account found: Account [accountId=2, balance=779.25, status=AccountStatus [statusId=2, status=OPEN], type=AccountType [typeId=2, type=CHECKING], creationDate=2018-12-22]
+2020-11-05 14:09:50 INFO  Business:460 - Processing transfer request now.
+2020-11-05 14:09:52 DEBUG UserDaoImpl:254 - TESTING FUNCTION...
+2020-11-05 14:09:52 INFO  UserDaoImpl:267 - Transfer request is completed
+2020-11-05 14:09:52 INFO  Business:462 - Transfer request to database completed.
+2020-11-05 14:10:03 INFO  MenuDriver:23 - You picked option: 3
+2020-11-05 14:10:05 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 14:10:05 INFO  Business:339 - Beginning to check user balance
+2020-11-05 14:10:06 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 14:10:37 INFO  Business:370 - User has pressed the quit key.
+2020-11-05 14:10:37 INFO  Business:375 - User is now ready to return to main menu.
+2020-11-05 14:10:42 INFO  MenuDriver:23 - You picked option: 11
+2020-11-05 14:10:43 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-05 14:10:43 INFO  Business:266 - Exiting current session
+2020-11-05 14:10:44 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 14:10:47 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 14:38:41 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 14:38:54 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 14:38:56 INFO  Business:82 - Logging in existing user...
+2020-11-05 14:39:16 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:39:16 INFO  UserServiceImpl:64 - credentials match
+2020-11-05 14:39:17 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:39:17 INFO  Business:101 - User found in database: User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:39:27 INFO  MenuDriver:23 - You picked option: 6
+2020-11-05 14:39:28 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:39:28 INFO  Business:485 - Loading account master list.
+2020-11-05 14:39:29 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:39:29 INFO  UserDaoImpl:85 - in account dao impl selectAllAccounts method
+2020-11-05 14:39:30 INFO  UserDaoImpl:104 - Sucessful extraction of the account list.
+2020-11-05 14:39:41 INFO  Business:522 - User has pressed the quit key.
+2020-11-05 14:39:41 INFO  Business:527 - User is now ready to return to main menu.
+2020-11-05 14:40:51 INFO  MenuDriver:23 - You picked option: 5
+2020-11-05 14:40:52 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:40:52 INFO  Business:407 - Beginning transfer request.
+2020-11-05 14:40:54 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:41:00 INFO  UserDaoImpl:134 - in account dao impl selectAccountById method
+2020-11-05 14:41:02 INFO  UserDaoImpl:154 - Account found: Account [accountId=1, balance=1365.25, status=AccountStatus [statusId=1, status=OPEN], type=AccountType [typeId=1, type=CHECKING], creationDate=2017-01-15]
+2020-11-05 14:41:02 DEBUG Business:415 - Testing ownership check.
+2020-11-05 14:41:02 DEBUG Business:429 - User is not an owner.
+2020-11-05 14:41:02 INFO  Business:435 - aaknox, ADMIN is an authorized user for this type of request.
+2020-11-05 14:41:18 INFO  UserDaoImpl:134 - in account dao impl selectAccountById method
+2020-11-05 14:41:20 INFO  UserDaoImpl:154 - Account found: Account [accountId=3, balance=49.01, status=AccountStatus [statusId=3, status=OPEN], type=AccountType [typeId=3, type=SAVINGS], creationDate=2019-06-14]
+2020-11-05 14:41:33 INFO  Business:460 - Processing transfer request now.
+2020-11-05 14:41:34 DEBUG UserDaoImpl:254 - TESTING FUNCTION...
+2020-11-05 14:41:34 INFO  UserDaoImpl:267 - Transfer request is completed
+2020-11-05 14:41:34 INFO  Business:462 - Transfer request to database completed.
+2020-11-05 14:42:45 INFO  MenuDriver:23 - You picked option: 6
+2020-11-05 14:42:46 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:42:46 INFO  Business:485 - Loading account master list.
+2020-11-05 14:42:48 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:42:48 INFO  UserDaoImpl:85 - in account dao impl selectAllAccounts method
+2020-11-05 14:42:49 INFO  UserDaoImpl:104 - Sucessful extraction of the account list.
+2020-11-05 14:44:03 INFO  Business:522 - User has pressed the quit key.
+2020-11-05 14:44:03 INFO  Business:527 - User is now ready to return to main menu.
+2020-11-05 14:45:00 INFO  MenuDriver:23 - You picked option: 3
+2020-11-05 14:45:01 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:45:01 INFO  Business:339 - Beginning to check user balance
+2020-11-05 14:45:02 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:45:20 INFO  Business:370 - User has pressed the quit key.
+2020-11-05 14:45:20 INFO  Business:375 - User is now ready to return to main menu.
+2020-11-05 14:45:25 INFO  MenuDriver:23 - You picked option: 8
+2020-11-05 14:45:27 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:45:27 INFO  Business:595 - Gathering pending applications...
+2020-11-05 14:45:28 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:46:00 INFO  Business:630 - User has pressed the quit key.
+2020-11-05 14:46:00 INFO  Business:635 - User is now ready to return to main menu.
+2020-11-05 14:46:58 INFO  MenuDriver:23 - You picked option: 11
+2020-11-05 14:46:59 INFO  UserDaoImpl:102 - User search by username was successful. User [userId=1, username=aaknox, password=password, firstName=Azhya, lastName=Knox, email=azhya.knox@gmail.com, role=BankRole [roleId=1, roleType=ADMIN], accounts=[]]
+2020-11-05 14:46:59 INFO  Business:266 - Exiting current session
+2020-11-05 14:47:00 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-05 14:47:04 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-05 22:29:16 INFO  AccountServiceImpl:18 - Adding account to database.
+2020-11-05 22:29:18 INFO  UserDaoImpl:40 - insert into account table complete
+2020-11-05 22:29:18 INFO  UserDaoImpl:134 - in account dao impl selectAccountById method
+2020-11-05 22:29:19 INFO  UserDaoImpl:154 - Account found: Account [accountId=0, balance=0.0, status=null, type=null, creationDate=null]

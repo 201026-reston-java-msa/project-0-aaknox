@@ -355,7 +355,7 @@ public class Business {
 					"+----------------------------------------------------------------------------------------------------------------+");
 			for (Account a : accounts) {
 				// print table content
-				System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", a.getAccountId(), a.getBalance(),
+				System.out.printf("| %-20s $%.2f %-20s %-20s %-5s %-20s |", a.getAccountId(), a.getBalance(),
 						a.getStatus().getStatus(), a.getType().getType(), user.getUserId(), a.getCreationDate());
 				System.out.println();
 			}
@@ -549,12 +549,12 @@ public class Business {
 			// populate table after route guarding
 			// print table headers
 			System.out.println(
-					"+----------------------------------------------------------------------------------------------------------------+");
-			System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-5s |", "USER_ID", "USERNAME", "PASSWORD",  "FIRST_NAME", "LAST_NAME",
+					"+-------------------------------------------------------------------------------------------------------------------------------------------------------------+");
+			System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-40s %-40s %-5s |", "USER_ID", "USERNAME", "PASSWORD",  "FIRST_NAME", "LAST_NAME",
 					"EMAIL", "ROLE", "NUM_OF_ACCOUNTS");
 			System.out.println();
 			System.out.println(
-					"+----------------------------------------------------------------------------------------------------------------+");
+					"+-------------------------------------------------------------------------------------------------------------------------------------------------------------+");
 			for (User u : masterList) {
 				// find all accounts for each user
 				List<Account> accounts = accountService.viewAccountsByUserId(u.getUserId());
@@ -566,12 +566,12 @@ public class Business {
 					numOfAccounts = accounts.size();
 				}
 				// print table content
-				System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-20s %-5s |", u.getUserId(), u.getUsername(),
+				System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-40s %-40s %-5s |", u.getUserId(), u.getUsername(),
 						u.getPassword(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getRole().getRoleType(), numOfAccounts);
 				System.out.println();
 			}
 			System.out.println(
-					"+----------------------------------------------------------------------------------------------------------------+");
+					"+-------------------------------------------------------------------------------------------------------------------------------------------------------------+");
 			// run loop to check if user q button
 			boolean isExited = false;
 			while (isExited == false) {
