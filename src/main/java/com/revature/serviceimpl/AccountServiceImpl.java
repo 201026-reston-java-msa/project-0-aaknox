@@ -1,9 +1,7 @@
 package com.revature.serviceimpl;
-
 import java.util.List;
 
 import org.apache.log4j.Logger;
-
 import com.revature.dao.AccountDao;
 import com.revature.daoimpl.AccountDaoImpl;
 import com.revature.model.Account;
@@ -13,6 +11,7 @@ public class AccountServiceImpl implements AccountService {
 	private static Logger logger = Logger.getLogger(AccountServiceImpl.class);
 	private AccountDao accountDao = new AccountDaoImpl();
 
+	
 	@Override
 	public void accountCreate(Account acc, String uname) {
 		logger.info("Adding account to database.");
