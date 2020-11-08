@@ -1,10 +1,12 @@
 package com.revature.testing;
 
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,15 +34,15 @@ public class BankAccountEvaluationService {
 	@Before
 	public void setUp() {
 		service = new AccountServiceImpl();
-		business = new Business();
 		MockitoAnnotations.initMocks(this);
 	}
+	
 
 	/*
 	 * TEST CASES FOR SERVICE LAYER
 	 */
 
-	// accountCreate()
+	// accountCreate() - 1
 	@Test
 	public void testCreateAccount_verified() {
 		// test object declarations
@@ -51,8 +53,9 @@ public class BankAccountEvaluationService {
 		// verify that the dao mock ran with injector
 		verify(daoMock, times(1)).insertAccount(account, username);
 	}
-
-	// makeDeposit() - test passed (DO NOT CHANGE CODE)
+	
+	//// makeDeposit() - 2
+	// below test passed (DO NOT CHANGE CODE)
 	@Test
 	public void testMakeDeposit_ValidUserId() {
 		// test objects
@@ -84,7 +87,7 @@ public class BankAccountEvaluationService {
 		service.makeDeposit(account.getBalance() + amount, account.getAccountId());
 	}
 
-	// makeWithDrawal()
+	// makeWithDrawal() - 4
 
 	@Test
 	public void testMakeWithdrawal_ValidUserId() {
@@ -150,6 +153,7 @@ public class BankAccountEvaluationService {
 		service.makeWithdraw(amount, account.getAccountId());
 	}
 	
+	//getAllAccounts() - 1
 	@Test
 	public void testGetAllAccounts_verified(){
 		List<Account> accounts = new ArrayList<Account>();
@@ -157,5 +161,38 @@ public class BankAccountEvaluationService {
 		service.getAllAccounts();
 		verify(daoMock, times(1)).selectAllAccounts();
 	}
+	
+	//removeAccountByAccountId() - 1
+	@Test
+	public void testRemoveAccountByAccountId_verified() {
+		Account account = new Account();
+		when(daoMock.selectAccountByAccountId(1)).thenReturn(account);
+		service.removeAccountByAccountId(account.getAccountId());
+		verify(daoMock, times(1)).deleteAccountByAccountId(account.getAccountId());
+	}
 
+	//makeTransfer() - 3
+	@Test
+	public void testMakeTransfer_verified() {
+		//test object declaration
+		double amount = 100;
+		int fromId = 1; 
+		int toId = 2;
+		//set up - skipped (function returns void in DB)
+		
+		//run test method here
+		service.makeTransfer(amount, fromId, toId);
+		//verify that daoMock was executed when service method was called
+		verify(daoMock, times(1)).transferRequestFunc(amount, fromId, toId);
+	}
+	
+	@Test
+	public void testMakeTransfer_InsufficientSenderFunds() {
+		
+	}
+	
+	@Test
+	public void testMakeTransfer_NegativeTransferAccount() {
+		
+	}
 }
