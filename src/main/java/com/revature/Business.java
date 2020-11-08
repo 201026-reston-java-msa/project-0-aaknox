@@ -322,17 +322,27 @@ public class Business {
 		// prompt user for account number
 		System.out.print("Please enter your account number: ");
 		int userAccNo = scanner.nextInt();
-
+		Account account = accountService.getAccountByAccountId(userAccNo);
+		int realOwnerId = accountService.findOwnerIdOfAccount(account);
+		
 		logger.debug("Deposit request submitted: $" + myDeposit + " to account number " + userAccNo + ".\n Requestor: "
 				+ user.getUsername() + ", Role: " + user.getRole().getRoleType());
 		// some logic to check if this user is authorized to make changes to account
-		accountService.makeDeposit(myDeposit, userAccNo);
-		logger.info("Deposit request has been successfully submitted. Returning to main menu.");
-		// return to main menu
-		String[] sessionUserInfo = new String[10];
-		sessionUserInfo[0] = user.getUsername();
-		sessionUserInfo[1] = user.getPassword();
-		MenuDriver.main(sessionUserInfo);
+		if(user.getUserId() == realOwnerId || 
+				user.getRole().getRoleType().equals("EMPLOYEE") || 
+				user.getRole().getRoleType().equals("ADMIN")) {
+			accountService.makeDeposit(myDeposit, userAccNo);
+			logger.info("Deposit request has been successfully submitted. Returning to main menu.");
+			// return to main menu
+			String[] sessionUserInfo = new String[10];
+			sessionUserInfo[0] = user.getUsername();
+			sessionUserInfo[1] = user.getPassword();
+			MenuDriver.main(sessionUserInfo);
+		}else {
+			
+			throw new BankException("Only the account holder has access to make transactions of this type.");
+		}
+		
 	}
 
 	public static void checkBalance() {
