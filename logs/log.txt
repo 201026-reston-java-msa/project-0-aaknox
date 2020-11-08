@@ -2340,3 +2340,54 @@ org.postgresql.util.PSQLException: ERROR: column "status_type" of relation "acco
 2020-11-08 00:16:24 INFO  AccountServiceImpl:70 - Sending deposit request to the database.
 2020-11-08 00:16:24 INFO  AccountServiceImpl:79 - New balance: 20.5
 2020-11-08 00:16:24 INFO  AccountServiceImpl:80 - Updating account balance to account number 1
+2020-11-08 00:24:23 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:24:23 WARN  AccountServiceImpl:116 - Overdraft alert: subtracted cash must be at least greater than zero. Amount: -20.5
+2020-11-08 00:24:23 INFO  AccountServiceImpl:70 - Sending deposit request to the database.
+2020-11-08 00:24:23 WARN  AccountServiceImpl:85 - Overdraft alert: added cash must be at least greater than zero. Amount: -100.5
+2020-11-08 00:24:23 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:24:23 INFO  AccountServiceImpl:103 - New balance: $-120.50
+2020-11-08 00:24:23 INFO  AccountServiceImpl:104 - Updating account balance to account number 1
+2020-11-08 00:24:23 WARN  AccountServiceImpl:110 - Overdraft alert: insufficient fund to process request.
+2020-11-08 00:24:23 WARN  AccountServiceImpl:111 - Potential new balance would be: 20.5
+2020-11-08 00:24:23 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:24:23 INFO  AccountServiceImpl:24 - Adding account to database.
+2020-11-08 00:24:23 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:24:23 INFO  AccountServiceImpl:103 - New balance: $20.50
+2020-11-08 00:24:23 INFO  AccountServiceImpl:104 - Updating account balance to account number 1
+2020-11-08 00:24:23 INFO  AccountServiceImpl:70 - Sending deposit request to the database.
+2020-11-08 00:24:23 INFO  AccountServiceImpl:79 - New balance: 20.5
+2020-11-08 00:24:23 INFO  AccountServiceImpl:80 - Updating account balance to account number 1
+2020-11-08 00:26:19 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:26:19 WARN  AccountServiceImpl:116 - Overdraft alert: subtracted cash must be at least greater than zero. Amount: -20.5
+2020-11-08 00:26:19 INFO  AccountServiceImpl:70 - Sending deposit request to the database.
+2020-11-08 00:26:19 WARN  AccountServiceImpl:85 - Overdraft alert: added cash must be at least greater than zero. Amount: -100.5
+2020-11-08 00:26:19 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:26:19 INFO  AccountServiceImpl:103 - New balance: $-120.50
+2020-11-08 00:26:19 INFO  AccountServiceImpl:104 - Updating account balance to account number 1
+2020-11-08 00:26:19 WARN  AccountServiceImpl:110 - Overdraft alert: insufficient fund to process request.
+2020-11-08 00:26:19 WARN  AccountServiceImpl:111 - Potential new balance would be: 20.5
+2020-11-08 00:26:19 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:26:19 INFO  AccountServiceImpl:24 - Adding account to database.
+2020-11-08 00:26:19 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:26:19 INFO  AccountServiceImpl:103 - New balance: $20.50
+2020-11-08 00:26:19 INFO  AccountServiceImpl:104 - Updating account balance to account number 1
+2020-11-08 00:26:19 INFO  AccountServiceImpl:70 - Sending deposit request to the database.
+2020-11-08 00:26:19 INFO  AccountServiceImpl:79 - New balance: 20.5
+2020-11-08 00:26:19 INFO  AccountServiceImpl:80 - Updating account balance to account number 1
+2020-11-08 00:26:59 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:26:59 WARN  AccountServiceImpl:116 - Overdraft alert: subtracted cash must be at least greater than zero. Amount: -20.5
+2020-11-08 00:26:59 INFO  AccountServiceImpl:70 - Sending deposit request to the database.
+2020-11-08 00:26:59 WARN  AccountServiceImpl:85 - Overdraft alert: added cash must be at least greater than zero. Amount: -100.5
+2020-11-08 00:26:59 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:26:59 INFO  AccountServiceImpl:103 - New balance: $-120.50
+2020-11-08 00:26:59 INFO  AccountServiceImpl:104 - Updating account balance to account number 1
+2020-11-08 00:26:59 WARN  AccountServiceImpl:110 - Overdraft alert: insufficient fund to process request.
+2020-11-08 00:26:59 WARN  AccountServiceImpl:111 - Potential new balance would be: 20.5
+2020-11-08 00:26:59 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:26:59 INFO  AccountServiceImpl:24 - Adding account to database.
+2020-11-08 00:26:59 INFO  AccountServiceImpl:93 - Sending withdrawal request to the database.
+2020-11-08 00:26:59 INFO  AccountServiceImpl:103 - New balance: $20.50
+2020-11-08 00:26:59 INFO  AccountServiceImpl:104 - Updating account balance to account number 1
+2020-11-08 00:26:59 INFO  AccountServiceImpl:70 - Sending deposit request to the database.
+2020-11-08 00:26:59 INFO  AccountServiceImpl:79 - New balance: 20.5
+2020-11-08 00:26:59 INFO  AccountServiceImpl:80 - Updating account balance to account number 1

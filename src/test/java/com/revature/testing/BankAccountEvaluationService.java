@@ -24,7 +24,7 @@ import com.revature.serviceimpl.AccountServiceImpl;
  * 
  */
 public class BankAccountEvaluationService {
-	
+
 	@InjectMocks
 	private AccountServiceImpl service;
 
@@ -36,7 +36,6 @@ public class BankAccountEvaluationService {
 		service = new AccountServiceImpl();
 		MockitoAnnotations.initMocks(this);
 	}
-	
 
 	/*
 	 * TEST CASES FOR SERVICE LAYER
@@ -53,7 +52,7 @@ public class BankAccountEvaluationService {
 		// verify that the dao mock ran with injector
 		verify(daoMock, times(1)).insertAccount(account, username);
 	}
-	
+
 	//// makeDeposit() - 2
 	// below test passed (DO NOT CHANGE CODE)
 	@Test
@@ -152,17 +151,17 @@ public class BankAccountEvaluationService {
 		// should be returns a BankException: insufficient funds for withdraw
 		service.makeWithdraw(amount, account.getAccountId());
 	}
-	
-	//getAllAccounts() - 1
+
+	// getAllAccounts() - 1
 	@Test
-	public void testGetAllAccounts_verified(){
+	public void testGetAllAccounts_verified() {
 		List<Account> accounts = new ArrayList<Account>();
 		when(daoMock.selectAllAccounts()).thenReturn(accounts);
 		service.getAllAccounts();
 		verify(daoMock, times(1)).selectAllAccounts();
 	}
-	
-	//removeAccountByAccountId() - 1
+
+	// removeAccountByAccountId() - 1
 	@Test
 	public void testRemoveAccountByAccountId_verified() {
 		Account account = new Account();
@@ -171,28 +170,18 @@ public class BankAccountEvaluationService {
 		verify(daoMock, times(1)).deleteAccountByAccountId(account.getAccountId());
 	}
 
-	//makeTransfer() - 3
+	// makeTransfer() - 1
 	@Test
 	public void testMakeTransfer_verified() {
-		//test object declaration
+		// test object declaration
 		double amount = 100;
-		int fromId = 1; 
+		int fromId = 1;
 		int toId = 2;
-		//set up - skipped (function returns void in DB)
-		
-		//run test method here
+		// set up - skipped (function returns void in DB)
+
+		// run test method here
 		service.makeTransfer(amount, fromId, toId);
-		//verify that daoMock was executed when service method was called
+		// verify that daoMock was executed when service method was called
 		verify(daoMock, times(1)).transferRequestFunc(amount, fromId, toId);
-	}
-	
-	@Test
-	public void testMakeTransfer_InsufficientSenderFunds() {
-		
-	}
-	
-	@Test
-	public void testMakeTransfer_NegativeTransferAccount() {
-		
 	}
 }
