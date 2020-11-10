@@ -26,10 +26,11 @@ public class Display {
 		System.out.println("6 - View all accounts");
 		System.out.println("7 - View all users");
 		System.out.println("8 - View pending account applications");
+		System.out.println("9 - View transaction history");
 		System.out.println();
-		System.out.println("9 - Approve/Deny applications for accounts");
-		System.out.println("10 - Cancel an account");
-		System.out.println("11 - Log Out");
+		System.out.println("10 - Approve/Deny applications for accounts");
+		System.out.println("11 - Cancel an account");
+		System.out.println("12 - Log Out");
 		System.out.print("-----------Your pick: ");
 	}
 

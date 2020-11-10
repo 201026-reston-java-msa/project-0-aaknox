@@ -7,7 +7,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +19,21 @@ import com.revature.dao.AccountDao;
 import com.revature.model.Account;
 import com.revature.model.AccountStatus;
 import com.revature.model.AccountType;
+import com.revature.model.BankTransaction;
+import com.revature.model.Description;
 
 public class AccountDaoImpl implements AccountDao {
 	private static Logger logger = Logger.getLogger(UserDaoImpl.class);
-
-	private static String url = "jdbc:postgresql://localhost:5432/postgres";
-	private static String dbUsername = "postgres";
-	private static String dbPassword = "password";
-
+	//REAL CREDENTIALS
+	private static String url = "jdbc:postgresql://" + System.getenv("TRAINING_REVATUREDB_URL") + "/AAKBank";
+	private static String dbUsername = System.getenv("TRAINING_REVATUREDB_USERNAME");
+	private static String dbPassword = System.getenv("TRAINING_REVATUREDB_PASSWORD");
+	
+	//BACKUP DB CREDENTIALS
+//	private static String url = "jdbc:postgresql://localhost:5432/postgres";
+//	private static String dbUsername = "postgres";
+//	private static String dbPassword = "password";
+	
 	@Override
 	public void insertAccount(Account acc, String uname) {
 		System.out.println("inside insertAccount method in account dao impl");
@@ -60,7 +69,16 @@ public class AccountDaoImpl implements AccountDao {
 					ps4.setInt(1, rs.getInt(1));
 					ps4.setString(2, acc.getType().getType());
 					ps4.executeUpdate();
-
+					
+					//insert initial transaction into transactions table
+					sql = "INSERT INTO bank_transactions (trans_account_id, trans_time_stamp, trans_amount, trans_description_code) "
+							+ "VALUES (?, ?, ?, 100);";
+					PreparedStatement ps9 = conn.prepareStatement(sql);
+					ps9.setInt(1, rs.getInt(1));
+					ps9.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+					ps9.setDouble(3, acc.getBalance());
+					ps9.executeUpdate();
+					
 					// update the users table
 					System.out.println("Adding account to username: " + uname);
 					sql = "UPDATE accounts SET account_user_id = (SELECT u2.user_id FROM users u2 WHERE u2.username = ?) WHERE account_id = ?;";
@@ -208,7 +226,7 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public void updateAccountBalance(double balance, int id) {
+	public void updateAccountBalance(double balance, int id, int messageCode) {
 		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
 
 			String sql = "UPDATE accounts SET account_balance = ?  WHERE account_id = ?;";
@@ -218,6 +236,17 @@ public class AccountDaoImpl implements AccountDao {
 			ps.setInt(2, id);
 			ps.executeUpdate();
 			logger.info("new balance is now set");
+			
+			//add change to transaction table
+			sql = "INSERT INTO bank_transactions (trans_account_id, trans_time_stamp, trans_amount, trans_description_code) " + 
+					"VALUES (?, ?, ?, ?);";
+			PreparedStatement ps2 = conn.prepareStatement(sql);
+			ps2.setInt(1, id);
+			ps2.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+			ps2.setDouble(3, balance);
+			ps2.setInt(4, messageCode);
+			ps2.executeUpdate();
+			logger.info("transaction has been logged");
 
 		} catch (SQLException e) {
 			logger.warn("Error in SQL execution to update balance. Stack Trace: ", e);
@@ -226,7 +255,7 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
-	public void updateAccountStatus(String status, int id) {
+	public void updateAccountStatus(String status, int id, int messageCode) {
 		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
 			// update status table first
 			String sql = "UPDATE account_status SET status_state = ? WHERE status_id = ?";
@@ -241,6 +270,18 @@ public class AccountDaoImpl implements AccountDao {
 			ps.setString(1, status);
 			ps.setInt(2, id);
 			ps.executeUpdate();
+			
+			//add change to transaction table
+			sql = "INSERT INTO bank_transactions (trans_account_id, trans_time_stamp, trans_amount, trans_description_code) " + 
+					"VALUES (?, ?, ?, ?);";
+			PreparedStatement ps2 = conn.prepareStatement(sql);
+			ps2.setInt(1, id);
+			ps2.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+			Account acc = selectAccountByAccountId(id);
+			ps2.setDouble(3, acc.getBalance());
+			ps2.setInt(4, messageCode);
+			ps2.executeUpdate();
+			logger.info("transaction has been logged");
 
 		} catch (SQLException e) {
 			logger.warn("Error in SQL execution to update status. Stack Trace: ", e);
@@ -285,6 +326,11 @@ public class AccountDaoImpl implements AccountDao {
 			PreparedStatement ps2 = conn.prepareStatement(sql);
 			ps2.setInt(1, id);
 			ps2.executeUpdate();
+			
+			sql = "DELETE FROM bank_transactions WHERE trans_account_id = ?;";
+			PreparedStatement ps5 = conn.prepareStatement(sql);
+			ps5.setInt(1, id);
+			ps5.executeUpdate();
 
 			// now from accounts table --> delete account
 			sql = "DELETE FROM accounts WHERE account_id = ?;";
@@ -296,5 +342,35 @@ public class AccountDaoImpl implements AccountDao {
 			logger.warn("SQL statement failed. Stack Trace: ", e);
 		}
 
+	}
+
+	@Override
+	public List<BankTransaction> transactionHistoryByAccountId(int accountId) {
+		List<BankTransaction> transList = new ArrayList<BankTransaction>();
+		
+		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
+			//select with join
+			String sql = "SELECT trans_id, trans_account_id, trans_time_stamp, trans_amount, trans_description_code, description_message " + 
+					"FROM bank_transactions FULL JOIN descriptions ON trans_description_code = description_code " + 
+					"WHERE trans_account_id = ? ORDER BY trans_id;";
+			PreparedStatement ps0 = conn.prepareStatement(sql);
+			ps0.setInt(1, accountId);
+			ResultSet rs = ps0.executeQuery();
+			
+			while (rs.next()) {
+				BankTransaction transaction = new BankTransaction();
+				transaction.setTransactionId(rs.getInt(1));
+				transaction.setTransactionAccountId(rs.getInt(2));
+				transaction.setTransactionTimeStamp(rs.getTimestamp(3).toLocalDateTime());
+				transaction.setTransactionBalance(rs.getDouble(4));
+				transaction.setDescription(new Description(rs.getInt(5), rs.getString(6)));
+				transList.add(transaction);
+			}
+
+		} catch (SQLException e) {
+			logger.warn("Error in SQL execution of join. Stack Trace: ", e);
+		}
+		
+		return transList;
 	}
 }

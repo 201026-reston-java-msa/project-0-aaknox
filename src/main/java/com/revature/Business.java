@@ -10,6 +10,7 @@ import com.revature.model.Account;
 import com.revature.model.AccountStatus;
 import com.revature.model.AccountType;
 import com.revature.model.BankRole;
+import com.revature.model.BankTransaction;
 import com.revature.model.User;
 import com.revature.security.BankException;
 import com.revature.service.AccountService;
@@ -65,18 +66,22 @@ public class Business {
 			viewPendingApplications();
 			break;
 		case 9:
+			viewTransactionHistory();
+		case 10:
 			authorizeApplications();
 			break;
-		case 10:
+		case 11:
 			removeAccount();
 			break;
-		case 11:
+		case 12:
 			signOut();
 			break;
 		default:
 			break;
 		}
 	}
+
+	
 
 	public static void signIn() {
 		logger.info("Logging in existing user...");
@@ -331,7 +336,7 @@ public class Business {
 		if(user.getUserId() == realOwnerId || 
 				user.getRole().getRoleType().equals("EMPLOYEE") || 
 				user.getRole().getRoleType().equals("ADMIN")) {
-			accountService.makeDeposit(myDeposit, userAccNo);
+			accountService.makeDeposit(myDeposit, userAccNo, 500);
 			logger.info("Deposit request has been successfully submitted. Returning to main menu.");
 			// return to main menu
 			String[] sessionUserInfo = new String[10];
@@ -403,7 +408,7 @@ public class Business {
 		logger.debug("Withdrawal request submitted: $" + myWithdraw + " to account number " + userAccNo
 				+ ".\n Requestor: " + user.getUsername() + ", Role: " + user.getRole().getRoleType());
 		// some logic to check if this user is authorized to make changes to account
-		accountService.makeWithdraw(myWithdraw, userAccNo);
+		accountService.makeWithdraw(myWithdraw, userAccNo, 600);
 		logger.info("Withdrawal request has been successfully submitted. Returning to main menu.");
 		// return to main menu
 		String[] sessionUserInfo = new String[10];
@@ -625,8 +630,9 @@ public class Business {
 					"+----------------------------------------------------------------------------------------------------------------+");
 			for (Account a : accounts) {
 				// print table content
+				int ownerId = accountService.findOwnerIdOfAccount(a);
 				System.out.printf("| %-20s %-20s %-20s %-20s %-5s %-20s |", a.getAccountId(), a.getBalance(),
-						a.getStatus().getStatus(), a.getType().getType(), user.getUserId(), a.getCreationDate());
+						a.getStatus().getStatus(), a.getType().getType(), ownerId, a.getCreationDate());
 				System.out.println();
 			}
 			System.out.println(
@@ -647,6 +653,59 @@ public class Business {
 			sessionUserInfo[0] = user.getUsername();
 			sessionUserInfo[1] = user.getPassword();
 			MenuDriver.main(sessionUserInfo);
+		}
+	}
+	
+	private static void viewTransactionHistory() {
+		logger.info("Beginning transaction history request.");
+		user = userService.getUserByUsername(user.getUsername());
+		// prompt user for account number
+		System.out.print("Please enter the account number: ");
+		int userAccNo = scanner.nextInt();
+		Account account = accountService.getAccountByAccountId(userAccNo);
+		int realOwnerId = accountService.findOwnerIdOfAccount(account);
+		
+		logger.debug("Transaction history request submitted for account number " + userAccNo + ".\n Requestor: "
+				+ user.getUsername() + ", Role: " + user.getRole().getRoleType());
+		// some logic to check if this user is authorized to make changes to account
+		if(user.getUserId() == realOwnerId || 
+				user.getRole().getRoleType().equals("EMPLOYEE") || 
+				user.getRole().getRoleType().equals("ADMIN")) {
+			List<BankTransaction> tList = accountService.showTransactionHistory(userAccNo);
+			// print table headers
+						System.out.println(
+								"+-------------------------------------------------------------------------------------------------------------------------------------------------------------+");
+						System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-40s |", "TRANS_ID", "TRANS_ACC_ID", "TRANS_TIMESTAMP",  "POST_TRANS_BALANCE", "DESCRIPTION_CODE",
+								"DESCRIPTION_MESSAGE");
+						System.out.println();
+						System.out.println(
+								"+-------------------------------------------------------------------------------------------------------------------------------------------------------------+");
+						for (BankTransaction t : tList) {
+							// print table content
+							System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-40s |", t.getTransactionId(), t.getTransactionAccountId(),
+									t.getTransactionTimeStamp(), t.getTransactionBalance(), t.getDescription().getDescriptionCode(), t.getDescription().getDescriptionMessage());
+							System.out.println();
+						}
+						System.out.println(
+								"+-------------------------------------------------------------------------------------------------------------------------------------------------------------+");
+						// run loop to check if user q button
+						boolean isExited = false;
+						while (isExited == false) {
+							System.out.print("Press [Q] at any time to return to the main menu: ");
+							char exitKey = scanner.next().charAt(0);
+							if (exitKey == 'q' || exitKey == 'Q') {
+								logger.info("User has pressed the quit key.");
+								isExited = true;
+							}
+						}
+						// if q-> return to main menu
+						logger.info("User is now ready to return to main menu.");
+						String[] sessionUserInfo = new String[10];
+						sessionUserInfo[0] = user.getUsername();
+						sessionUserInfo[1] = user.getPassword();
+						MenuDriver.main(sessionUserInfo);
+		}else {
+			throw new BankException("Only the account holder or an EMPLOYEE/ADMIN user has access to view transactions of this account.");
 		}
 	}
 
@@ -694,11 +753,11 @@ public class Business {
 			switch (authorizePick) {
 			case 1:
 				//if approved, update account to OPEN status
-				accountService.modifyAccountStatus("OPEN", desiredAccountNum);
+				accountService.modifyAccountStatus("OPEN", desiredAccountNum, 300);
 				break;
 			case 2:
 				//if denied, update account to CLOSED status
-				accountService.modifyAccountStatus("CLOSED", desiredAccountNum);
+				accountService.modifyAccountStatus("CLOSED", desiredAccountNum, 400);
 				break;
 			default:
 				logger.warn("invalid authorization code entered.");
@@ -764,7 +823,7 @@ public class Business {
 				case 'Y':
 				case 'y':
 					//if YES - change status to CLOSED
-					accountService.modifyAccountStatus("CLOSED", desiredAccountNum);
+					accountService.modifyAccountStatus("CLOSED", desiredAccountNum, 400);
 					//system now removes the account from API
 					accountService.removeAccountByAccountId(desiredAccountNum);
 					break;

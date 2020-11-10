@@ -18,9 +18,15 @@ import com.revature.model.User;
 public class UserDaoImpl implements UserDao {
 	private static Logger logger = Logger.getLogger(UserDaoImpl.class);
 
-	private static String url = "jdbc:postgresql://localhost:5432/postgres";
-	private static String dbUsername = "postgres";
-	private static String dbPassword = "password";
+	// REAL CREDENTIALS
+	private static String url = "jdbc:postgresql://" + System.getenv("TRAINING_REVATUREDB_URL") + "/AAKBank";
+	private static String dbUsername = System.getenv("TRAINING_REVATUREDB_USERNAME");
+	private static String dbPassword = System.getenv("TRAINING_REVATUREDB_PASSWORD");
+
+	// BACKUP DB CREDENTIALS
+//	private static String url = "jdbc:postgresql://localhost:5432/postgres";
+//	private static String dbUsername = "postgres";
+//	private static String dbPassword = "password";
 
 	@Override
 	public void insertUser(User user) {
@@ -88,7 +94,7 @@ public class UserDaoImpl implements UserDao {
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 
-			if(rs.next()) {
+			if (rs.next()) {
 				user.setUserId(rs.getInt(1));
 				user.setUsername(username);
 				user.setPassword(rs.getString(3));
@@ -101,7 +107,8 @@ public class UserDaoImpl implements UserDao {
 
 			logger.info("User search by username was successful. " + user);
 		} catch (SQLException e) {
-			logger.warn("SQL statement failed to execute in UserDaoImpl class::selectUserByUsername method. Stack Trace: ",
+			logger.warn(
+					"SQL statement failed to execute in UserDaoImpl class::selectUserByUsername method. Stack Trace: ",
 					e);
 		}
 
@@ -111,15 +118,15 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void updateUser(User user) {
 		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
-			//delete from bank roles table first
+			// delete from bank roles table first
 			String sql = "UPDATE bank_roles SET role_type = ? WHERE role_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, user.getRole().getRoleType());
 			ps.setInt(2, user.getRole().getRoleId());
 			ps.executeUpdate();
-			
-			//now updating users table
-			sql="UPDATE users SET username = ?, user_password = ?, user_firstname = ?, user_lastname = ?, user_email = ?, user_roletype =? WHERE user_id = ?;";
+
+			// now updating users table
+			sql = "UPDATE users SET username = ?, user_password = ?, user_firstname = ?, user_lastname = ?, user_email = ?, user_roletype =? WHERE user_id = ?;";
 			PreparedStatement ps3 = conn.prepareStatement(sql);
 			ps3.setString(1, user.getUsername());
 			ps3.setString(2, user.getPassword());
@@ -129,47 +136,47 @@ public class UserDaoImpl implements UserDao {
 			ps3.setString(6, user.getRole().getRoleType());
 			ps3.setInt(7, user.getUserId());
 			ps3.executeUpdate();
-			
+
 			logger.info("User update for userId " + user.getUserId() + " was successful. ");
 
 		} catch (SQLException e) {
 			logger.warn("SQL statement failed - UserDaoImpl class::updateUser method. Stack Trace: ", e);
 		}
 	}
-	
+
 	@Override
 	public void updatePassword(String username, String password) {
 		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
-			//now updating users table
-			String sql="UPDATE users SET user_password = ? WHERE username = ?;";
+			// now updating users table
+			String sql = "UPDATE users SET user_password = ? WHERE username = ?;";
 			PreparedStatement ps3 = conn.prepareStatement(sql);
 			ps3.setString(1, password);
 			ps3.setString(2, username);
 			ps3.executeUpdate();
-			
+
 			logger.info("User update for " + username + " was successful. ");
 
 		} catch (SQLException e) {
 			logger.warn("SQL statement failed - UserDaoImpl class::updateUser method. Stack Trace: ", e);
 		}
-		
+
 	}
 
 	@Override
 	public void deleteUser(User user) {
 		try (Connection conn = DriverManager.getConnection(url, dbUsername, dbPassword)) {
-			//delete from bank roles table first
+			// delete from bank roles table first
 			String sql = "DELETE FROM bank_roles WHERE role_id = ?;";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, user.getUserId());
 			ps.executeUpdate();
-			
-			//now delete user
-			sql="DELETE FROM users WHERE user_id = ?;";
+
+			// now delete user
+			sql = "DELETE FROM users WHERE user_id = ?;";
 			PreparedStatement ps3 = conn.prepareStatement(sql);
 			ps3.setInt(1, user.getUserId());
 			ps3.executeUpdate();
-			
+
 			logger.info("User " + user.getUsername() + " has successfully been deleted from database.");
 
 		} catch (SQLException e) {

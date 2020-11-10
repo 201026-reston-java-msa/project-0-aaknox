@@ -6,18 +6,13 @@ import org.apache.log4j.Logger;
 import com.revature.dao.AccountDao;
 import com.revature.daoimpl.AccountDaoImpl;
 import com.revature.model.Account;
+import com.revature.model.BankTransaction;
 import com.revature.security.BankException;
 import com.revature.service.AccountService;
 
 public class AccountServiceImpl implements AccountService {
 	private static Logger logger = Logger.getLogger(AccountServiceImpl.class);
 	private AccountDao accountDao = new AccountDaoImpl();
-	
-	AccountDao repository = null;
-	
-	public AccountServiceImpl() {
-		repository = new AccountDaoImpl();
-	}
 	
 	@Override
 	public void accountCreate(Account acc, String uname) {
@@ -56,8 +51,8 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void modifyAccountStatus(String status, int id) {
-		accountDao.updateAccountStatus(status, id);
+	public void modifyAccountStatus(String status, int id, int messageCode) {
+		accountDao.updateAccountStatus(status, id, messageCode);
 	}
 
 	@Override
@@ -66,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void makeDeposit(double addedCash, int accountid) {
+	public void makeDeposit(double addedCash, int accountid, int messageCode) {
 		logger.info("Sending deposit request to the database.");
 		// find the account
 		Account account = accountDao.selectAccountByAccountId(accountid);
@@ -79,7 +74,7 @@ public class AccountServiceImpl implements AccountService {
 			logger.info("New balance: " + account.getBalance());
 			logger.info("Updating account balance to account number " + accountid);
 			// update the database
-			accountDao.updateAccountBalance(myNewBalance, accountid);
+			accountDao.updateAccountBalance(myNewBalance, accountid, messageCode);
 		}else {
 			//else throw exception
 			logger.warn("Overdraft alert: added cash must be at least greater than zero. Amount: " + addedCash);
@@ -89,7 +84,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void makeWithdraw(double subbedCash, int id) {
+	public void makeWithdraw(double subbedCash, int id, int messageCode) {
 		logger.info("Sending withdrawal request to the database.");
 		// find the account
 		Account account = accountDao.selectAccountByAccountId(id);
@@ -104,7 +99,7 @@ public class AccountServiceImpl implements AccountService {
 			logger.info("Updating account balance to account number " + id);
 			if(myNewBalance >= 0) {
 				// update the database
-				accountDao.updateAccountBalance(myNewBalance, id);
+				accountDao.updateAccountBalance(myNewBalance, id, messageCode);
 			}else {
 				//else throw exception
 				logger.warn("Overdraft alert: insufficient fund to process request.");
@@ -122,6 +117,12 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public void makeTransfer(double amount, int fromId, int toId) {
 		accountDao.transferRequestFunc(amount, fromId, toId);
+	}
+
+	@Override
+	public List<BankTransaction> showTransactionHistory(int accountId) {
+		List<BankTransaction> tList = accountDao.transactionHistoryByAccountId(accountId);
+		return tList;
 	}
 
 }

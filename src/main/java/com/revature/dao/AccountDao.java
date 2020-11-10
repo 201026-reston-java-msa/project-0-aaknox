@@ -3,6 +3,7 @@ package com.revature.dao;
 import java.util.List;
 
 import com.revature.model.Account;
+import com.revature.model.BankTransaction;
 
 public interface AccountDao {
 	// CREATE
@@ -20,11 +21,13 @@ public interface AccountDao {
 	public List<Account> selectAllAccountsByStatus(String status);
 
 	public List<Account> selectAllAccountsByUserID(int userid);
+	
+	public List<BankTransaction> transactionHistoryByAccountId(int accountId);
 
 	// UPDATE
-	public void updateAccountBalance(double balance, int id);
+	public void updateAccountBalance(double balance, int id, int messageCode);
 	
-	public void updateAccountStatus(String status, int id);
+	public void updateAccountStatus(String status, int id, int messageCode);
 	
 	public void transferRequestFunc(double amount, int fromId, int toId);
 

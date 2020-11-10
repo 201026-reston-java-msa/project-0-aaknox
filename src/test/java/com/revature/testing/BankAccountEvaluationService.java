@@ -66,10 +66,10 @@ public class BankAccountEvaluationService {
 		when(daoMock.selectAccountByAccountId(1)).thenReturn(account);
 
 		// run test method (on service injector)
-		service.makeDeposit(account.getBalance() + amount, account.getAccountId());
+		service.makeDeposit(account.getBalance() + amount, account.getAccountId(), 500);
 
 		// verify that the mock worked
-		verify(daoMock, times(1)).updateAccountBalance(account.getBalance(), account.getAccountId());
+		verify(daoMock, times(1)).updateAccountBalance(account.getBalance(), account.getAccountId(), 500);
 	}
 
 	@Test(expected = BankException.class)
@@ -83,7 +83,7 @@ public class BankAccountEvaluationService {
 
 		// call test method (on service injector)
 		// this method call should fail due to a bank exception being thrown
-		service.makeDeposit(account.getBalance() + amount, account.getAccountId());
+		service.makeDeposit(account.getBalance() + amount, account.getAccountId(), 500);
 	}
 
 	// makeWithDrawal() - 4
@@ -100,10 +100,10 @@ public class BankAccountEvaluationService {
 		when(daoMock.selectAccountByAccountId(1)).thenReturn(account);
 
 		// run test method (on service injector)
-		service.makeWithdraw(account.getBalance() - amount, account.getAccountId());
+		service.makeWithdraw(account.getBalance() - amount, account.getAccountId(), 600);
 
 		// verify that the mock worked
-		verify(daoMock, times(1)).updateAccountBalance(account.getBalance(), account.getAccountId());
+		verify(daoMock, times(1)).updateAccountBalance(account.getBalance(), account.getAccountId(), 600);
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -117,7 +117,7 @@ public class BankAccountEvaluationService {
 		doThrow(new NullPointerException()).when(daoMock).selectAccountByAccountId(0);
 
 		// run test method (on service injector)
-		service.makeWithdraw(account.getBalance() - amount, account.getAccountId());
+		service.makeWithdraw(account.getBalance() - amount, account.getAccountId(), 600);
 	}
 
 	@Test(expected = BankException.class)
@@ -133,7 +133,7 @@ public class BankAccountEvaluationService {
 		// run test method (on service injector)
 		// should be returns a BankException: Cannot subtract negative amount of cash
 		// from account.
-		service.makeWithdraw(amount, account.getAccountId());
+		service.makeWithdraw(amount, account.getAccountId(), 600);
 	}
 
 	@Test(expected = BankException.class)
@@ -149,7 +149,7 @@ public class BankAccountEvaluationService {
 
 		// run test method (on service injector)
 		// should be returns a BankException: insufficient funds for withdraw
-		service.makeWithdraw(amount, account.getAccountId());
+		service.makeWithdraw(amount, account.getAccountId(), 600);
 	}
 
 	// getAllAccounts() - 1
