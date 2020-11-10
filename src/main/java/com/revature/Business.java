@@ -1,6 +1,7 @@
 package com.revature;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -564,12 +565,12 @@ public class Business {
 			// populate table after route guarding
 			// print table headers
 			System.out.println(
-					"+-------------------------------------------------------------------------------------------------------------------------------------------------------------+");
-			System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-40s %-40s %-5s |", "USER_ID", "USERNAME", "PASSWORD",  "FIRST_NAME", "LAST_NAME",
+					"+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+");
+			System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-40s %-40s %-5s ", "USER_ID", "USERNAME", "PASSWORD",  "FIRST_NAME", "LAST_NAME",
 					"EMAIL", "ROLE", "NUM_OF_ACCOUNTS");
 			System.out.println();
 			System.out.println(
-					"+-------------------------------------------------------------------------------------------------------------------------------------------------------------+");
+					"+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+");
 			for (User u : masterList) {
 				// find all accounts for each user
 				List<Account> accounts = accountService.viewAccountsByUserId(u.getUserId());
@@ -581,12 +582,12 @@ public class Business {
 					numOfAccounts = accounts.size();
 				}
 				// print table content
-				System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-40s %-40s %-5s |", u.getUserId(), u.getUsername(),
+				System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-40s %-40s %-5s ", u.getUserId(), u.getUsername(),
 						u.getPassword(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getRole().getRoleType(), numOfAccounts);
 				System.out.println();
 			}
 			System.out.println(
-					"+-------------------------------------------------------------------------------------------------------------------------------------------------------------+");
+					"+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+");
 			// run loop to check if user q button
 			boolean isExited = false;
 			while (isExited == false) {
@@ -675,15 +676,17 @@ public class Business {
 			// print table headers
 						System.out.println(
 								"+-------------------------------------------------------------------------------------------------------------------------------------------------------------+");
-						System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-40s |", "TRANS_ID", "TRANS_ACC_ID", "TRANS_TIMESTAMP",  "POST_TRANS_BALANCE", "DESCRIPTION_CODE",
+						System.out.printf("| %-15s %-15s %-30s %-30s %-20s %-40s |", "TRANS_ID", "TRANS_ACC_ID", "TRANS_TIMESTAMP",  "POST_TRANS_BALANCE", "DESCRIPTION_CODE",
 								"DESCRIPTION_MESSAGE");
 						System.out.println();
 						System.out.println(
 								"+-------------------------------------------------------------------------------------------------------------------------------------------------------------+");
 						for (BankTransaction t : tList) {
+							//format time stamp to formatter
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 							// print table content
-							System.out.printf("| %-20s %-20s %-20s %-20s %-20s %-40s |", t.getTransactionId(), t.getTransactionAccountId(),
-									t.getTransactionTimeStamp(), t.getTransactionBalance(), t.getDescription().getDescriptionCode(), t.getDescription().getDescriptionMessage());
+							System.out.printf("| %-15s %-15s %-30s %-30s %-20s %-40s ", t.getTransactionId(), t.getTransactionAccountId(),
+									t.getTransactionTimeStamp().format(formatter), t.getTransactionBalance(), t.getDescription().getDescriptionCode(), t.getDescription().getDescriptionMessage());
 							System.out.println();
 						}
 						System.out.println(
