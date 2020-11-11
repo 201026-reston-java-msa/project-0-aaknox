@@ -1,0 +1,4 @@
+| TRANS_ID        TRANS_ACC_ID    TRANS_TIMESTAMP                POST_TRANS_BALANCE             DESCRIPTION_CODE     DESCRIPTION_MESSAGE                      |
+| 11              5               2020-11-11 10:17:21            100.0                          100                  opened new account, awaiting admin approval 
+| 13              5               2020-11-11 10:50:04            120.0                          800                  recieved funds from another account      
+| 14              5               2020-11-11 11:14:13            120.0                          300                  account approved by adminstrator         
