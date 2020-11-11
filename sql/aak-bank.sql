@@ -204,6 +204,11 @@ SELECT * FROM account_types;
 SELECT * FROM account_status;
 SELECT * FROM bank_transactions;
 SELECT * FROM descriptions ORDER BY description_code;
+
+
+
+
+
 /*****************************************************************
  					SELECT/DELETE/UPDATE STATEMENTS
  *****************************************************************/

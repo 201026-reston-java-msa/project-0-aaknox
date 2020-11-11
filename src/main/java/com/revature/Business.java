@@ -1,5 +1,7 @@
 package com.revature;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -694,11 +696,39 @@ public class Business {
 						// run loop to check if user q button
 						boolean isExited = false;
 						while (isExited == false) {
-							System.out.print("Press [Q] at any time to return to the main menu: ");
+							System.out.print("Press [P] to print out a copy of this transaction history for personal records"
+									+" or [Q] at any time to return to the main menu: ");
 							char exitKey = scanner.next().charAt(0);
 							if (exitKey == 'q' || exitKey == 'Q') {
 								logger.info("User has pressed the quit key.");
 								isExited = true;
+							}else if (exitKey == 'p' || exitKey == 'P') {
+								logger.info("User has pressed the print key.");
+								try {
+									//create a new file
+									String fileName = "TransHistoryForAccountNumber" + userAccNo + " - "+ LocalDate.now() + ".txt";
+									File file = new File(fileName);
+									if(file.createNewFile()) {
+										//print transaction history
+										FileWriter fw = new FileWriter(file);
+										fw.write(String.format("| %-15s %-15s %-30s %-30s %-20s %-40s |", "TRANS_ID", "TRANS_ACC_ID", "TRANS_TIMESTAMP",  "POST_TRANS_BALANCE", "DESCRIPTION_CODE",
+												"DESCRIPTION_MESSAGE"));
+										fw.write("\n");
+										for (BankTransaction tP : tList) {
+											//format time stamp to formatter
+											DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+											// print table content
+											fw.write(String.format("| %-15s %-15s %-30s %-30s %-20s %-40s ", tP.getTransactionId(), tP.getTransactionAccountId(),
+													tP.getTransactionTimeStamp().format(formatter), tP.getTransactionBalance(), tP.getDescription().getDescriptionCode(), tP.getDescription().getDescriptionMessage()));
+											fw.write("\n");
+										}
+										fw.close();
+										logger.info("File has been created for user " + user.getUsername());
+										System.out.println("File has been created.");
+									}
+								} catch (Exception e) {
+									logger.error("Error at file creation. Stack Trace: ", e);
+								}
 							}
 						}
 						// if q-> return to main menu
