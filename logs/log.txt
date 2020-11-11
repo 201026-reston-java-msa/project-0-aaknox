@@ -231,3 +231,113 @@
 2020-11-11 10:19:33 INFO  Business:274 - Exiting current session
 2020-11-11 10:19:34 INFO  MainDriver:21 - This is an informational message from MainDriver.
 2020-11-11 10:19:40 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-11 10:46:08 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-11 10:46:11 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-11 10:46:13 INFO  Business:90 - Logging in existing user...
+2020-11-11 10:46:33 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:46:33 INFO  UserServiceImpl:64 - credentials match
+2020-11-11 10:46:33 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:46:33 INFO  Business:109 - User found in database: User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:46:42 INFO  MenuDriver:23 - You picked option: 3
+2020-11-11 10:46:43 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:46:43 INFO  Business:361 - Beginning to check user balance
+2020-11-11 10:46:43 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:46:49 INFO  Business:392 - User has pressed the quit key.
+2020-11-11 10:46:49 INFO  Business:397 - User is now ready to return to main menu.
+2020-11-11 10:46:54 INFO  MenuDriver:23 - You picked option: 5
+2020-11-11 10:46:54 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:46:54 INFO  Business:443 - Beginning transfer request.
+2020-11-11 10:46:55 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:47:00 INFO  UserDaoImpl:152 - in account dao impl selectAccountById method
+2020-11-11 10:47:01 INFO  UserDaoImpl:172 - Account found: Account [accountId=5, balance=100.0, status=AccountStatus [statusId=5, status=PENDING], type=AccountType [typeId=5, type=CHECKING], creationDate=2020-11-11]
+2020-11-11 10:47:01 DEBUG Business:451 - Testing ownership check.
+2020-11-11 10:47:01 DEBUG Business:454 - Index: Account [accountId=5, balance=100.0, status=AccountStatus [statusId=5, status=PENDING], type=AccountType [typeId=5, type=CHECKING], creationDate=2020-11-11]
+2020-11-11 10:47:01 INFO  Business:456 - Account found in list: Account [accountId=5, balance=100.0, status=AccountStatus [statusId=5, status=PENDING], type=AccountType [typeId=5, type=CHECKING], creationDate=2020-11-11]
+2020-11-11 10:47:01 DEBUG Business:467 - User is not an owner.
+2020-11-11 10:47:01 WARN  Business:510 - tsmith, CUSTOMER is an unauthorized user for this type of request.
+2020-11-11 10:47:20 INFO  MenuDriver:23 - You picked option: 12
+2020-11-11 10:47:21 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:47:21 INFO  Business:274 - Exiting current session
+2020-11-11 10:47:22 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-11 10:47:24 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-11 10:48:05 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-11 10:48:08 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-11 10:48:10 INFO  Business:90 - Logging in existing user...
+2020-11-11 10:48:26 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:48:26 INFO  UserServiceImpl:64 - credentials match
+2020-11-11 10:48:26 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:48:26 INFO  Business:109 - User found in database: User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:48:29 INFO  MenuDriver:23 - You picked option: 5
+2020-11-11 10:48:29 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:48:29 INFO  Business:443 - Beginning transfer request.
+2020-11-11 10:48:30 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:48:35 INFO  UserDaoImpl:152 - in account dao impl selectAccountById method
+2020-11-11 10:48:35 INFO  UserDaoImpl:172 - Account found: Account [accountId=5, balance=100.0, status=AccountStatus [statusId=5, status=PENDING], type=AccountType [typeId=5, type=CHECKING], creationDate=2020-11-11]
+2020-11-11 10:48:35 DEBUG Business:451 - Testing ownership check.
+2020-11-11 10:48:35 DEBUG Business:454 - Index: Account [accountId=5, balance=100.0, status=AccountStatus [statusId=5, status=PENDING], type=AccountType [typeId=5, type=CHECKING], creationDate=2020-11-11]
+2020-11-11 10:48:35 INFO  Business:456 - Account found in list: Account [accountId=5, balance=100.0, status=AccountStatus [statusId=5, status=PENDING], type=AccountType [typeId=5, type=CHECKING], creationDate=2020-11-11]
+2020-11-11 10:48:35 WARN  Business:460 - Account must be open first by admin.
+2020-11-11 10:48:35 DEBUG Business:470 - User is not an owner.
+2020-11-11 10:48:35 WARN  Business:513 - tsmith, CUSTOMER is an unauthorized user for this type of request.
+2020-11-11 10:48:45 INFO  MenuDriver:23 - You picked option: 12
+2020-11-11 10:48:45 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:48:45 INFO  Business:274 - Exiting current session
+2020-11-11 10:48:46 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-11 10:48:48 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-11 10:49:02 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-11 10:49:04 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-11 10:49:06 INFO  Business:90 - Logging in existing user...
+2020-11-11 10:49:26 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:49:26 INFO  UserServiceImpl:64 - credentials match
+2020-11-11 10:49:27 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:49:27 INFO  Business:109 - User found in database: User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:49:30 INFO  MenuDriver:23 - You picked option: 3
+2020-11-11 10:49:31 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:49:31 INFO  Business:361 - Beginning to check user balance
+2020-11-11 10:49:31 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:49:51 INFO  Business:392 - User has pressed the quit key.
+2020-11-11 10:49:51 INFO  Business:397 - User is now ready to return to main menu.
+2020-11-11 10:49:54 INFO  MenuDriver:23 - You picked option: 5
+2020-11-11 10:49:55 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:49:55 INFO  Business:443 - Beginning transfer request.
+2020-11-11 10:49:55 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:49:58 INFO  UserDaoImpl:152 - in account dao impl selectAccountById method
+2020-11-11 10:49:59 INFO  UserDaoImpl:172 - Account found: Account [accountId=1, balance=1500.25, status=AccountStatus [statusId=1, status=OPEN], type=AccountType [typeId=1, type=CHECKING], creationDate=2017-01-15]
+2020-11-11 10:49:59 DEBUG Business:451 - Testing ownership check.
+2020-11-11 10:49:59 DEBUG Business:454 - Index: Account [accountId=1, balance=1500.25, status=AccountStatus [statusId=1, status=OPEN], type=AccountType [typeId=1, type=CHECKING], creationDate=2017-01-15]
+2020-11-11 10:49:59 INFO  Business:456 - Account found in list: Account [accountId=1, balance=1500.25, status=AccountStatus [statusId=1, status=OPEN], type=AccountType [typeId=1, type=CHECKING], creationDate=2017-01-15]
+2020-11-11 10:49:59 DEBUG Business:468 - Check passed.
+2020-11-11 10:49:59 INFO  Business:476 - customer001, CUSTOMER is an authorized user for this type of request.
+2020-11-11 10:50:01 INFO  UserDaoImpl:152 - in account dao impl selectAccountById method
+2020-11-11 10:50:02 INFO  UserDaoImpl:172 - Account found: Account [accountId=5, balance=100.0, status=AccountStatus [statusId=5, status=PENDING], type=AccountType [typeId=5, type=CHECKING], creationDate=2020-11-11]
+2020-11-11 10:50:04 INFO  Business:501 - Processing transfer request now.
+2020-11-11 10:50:05 DEBUG UserDaoImpl:295 - TESTING FUNCTION...
+2020-11-11 10:50:05 INFO  UserDaoImpl:308 - Transfer request is completed
+2020-11-11 10:50:05 INFO  Business:503 - Transfer request to database completed.
+2020-11-11 10:50:10 INFO  MenuDriver:23 - You picked option: 3
+2020-11-11 10:50:11 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:50:11 INFO  Business:361 - Beginning to check user balance
+2020-11-11 10:50:11 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:50:15 INFO  Business:392 - User has pressed the quit key.
+2020-11-11 10:50:15 INFO  Business:397 - User is now ready to return to main menu.
+2020-11-11 10:50:17 INFO  MenuDriver:23 - You picked option: 12
+2020-11-11 10:50:18 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=3, username=customer001, password=suits123, firstName=Steve, lastName=Harvey, email=sharvey@gmail.com, role=BankRole [roleId=3, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:50:18 INFO  Business:274 - Exiting current session
+2020-11-11 10:50:19 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-11 10:50:21 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.
+2020-11-11 10:50:23 INFO  Business:90 - Logging in existing user...
+2020-11-11 10:50:32 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:50:32 INFO  UserServiceImpl:64 - credentials match
+2020-11-11 10:50:32 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:50:32 INFO  Business:109 - User found in database: User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:50:40 INFO  MenuDriver:23 - You picked option: 3
+2020-11-11 10:50:41 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:50:41 INFO  Business:361 - Beginning to check user balance
+2020-11-11 10:50:41 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:50:55 INFO  Business:392 - User has pressed the quit key.
+2020-11-11 10:50:55 INFO  Business:397 - User is now ready to return to main menu.
+2020-11-11 10:51:18 INFO  MenuDriver:23 - You picked option: 12
+2020-11-11 10:51:19 INFO  UserDaoImpl:108 - User search by username was successful. User [userId=6, username=tsmith, password=password, firstName=tester, lastName=smith, email=tsmith@gmail.com, role=BankRole [roleId=6, roleType=CUSTOMER], accounts=[]]
+2020-11-11 10:51:19 INFO  Business:274 - Exiting current session
+2020-11-11 10:51:20 INFO  MainDriver:21 - This is an informational message from MainDriver.
+2020-11-11 10:51:22 INFO  MainDriver:25 - Welcome menu pick entered is a valid number.

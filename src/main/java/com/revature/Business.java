@@ -454,7 +454,12 @@ public class Business {
 			logger.debug("Index: " + account);
 			if (account.getAccountId() == fromAccount.getAccountId()) {
 				logger.info("Account found in list: " + account);
-				isAuthorized = true;
+				if(account.getStatus().getStatus().equals("OPEN")) {
+					isAuthorized = true;
+				}else {
+					logger.warn("Account must be open first by admin.");
+					System.out.println("Request failed due to account not be open currently. Returning to main menu.");
+				}
 				break;
 			}
 		}
