@@ -339,15 +339,19 @@ public class Business {
 		if(user.getUserId() == realOwnerId || 
 				user.getRole().getRoleType().equals("EMPLOYEE") || 
 				user.getRole().getRoleType().equals("ADMIN")) {
-			accountService.makeDeposit(myDeposit, userAccNo, 500);
-			logger.info("Deposit request has been successfully submitted. Returning to main menu.");
+			if(account.getStatus().getStatus().equals("OPEN")) {
+				accountService.makeDeposit(myDeposit, userAccNo, 500);
+				logger.info("Deposit request has been successfully submitted. Returning to main menu.");
+			}else {
+				logger.warn("Account must be open first by admin.");
+				System.out.println("Request failed due to account not be open currently. Returning to main menu.");
+			}
 			// return to main menu
 			String[] sessionUserInfo = new String[10];
 			sessionUserInfo[0] = user.getUsername();
 			sessionUserInfo[1] = user.getPassword();
 			MenuDriver.main(sessionUserInfo);
 		}else {
-			
 			throw new BankException("Only the account holder has access to make transactions of this type.");
 		}
 		
@@ -407,17 +411,31 @@ public class Business {
 		// prompt user for account number
 		System.out.print("Please enter your account number: ");
 		int userAccNo = scanner.nextInt();
-
+		Account account = accountService.getAccountByAccountId(userAccNo);
+		int realOwnerId = accountService.findOwnerIdOfAccount(account);
+		
 		logger.debug("Withdrawal request submitted: $" + myWithdraw + " to account number " + userAccNo
 				+ ".\n Requestor: " + user.getUsername() + ", Role: " + user.getRole().getRoleType());
 		// some logic to check if this user is authorized to make changes to account
-		accountService.makeWithdraw(myWithdraw, userAccNo, 600);
-		logger.info("Withdrawal request has been successfully submitted. Returning to main menu.");
-		// return to main menu
-		String[] sessionUserInfo = new String[10];
-		sessionUserInfo[0] = user.getUsername();
-		sessionUserInfo[1] = user.getPassword();
-		MenuDriver.main(sessionUserInfo);
+		if(user.getUserId() == realOwnerId || 
+				user.getRole().getRoleType().equals("EMPLOYEE") || 
+				user.getRole().getRoleType().equals("ADMIN")) {
+			
+				if(account.getStatus().getStatus().equals("OPEN")) {
+					accountService.makeWithdraw(myWithdraw, userAccNo, 600);
+					logger.info("Withdrawal request has been successfully submitted. Returning to main menu.");
+				}else {
+					logger.warn("Account must be open first by admin.");
+					System.out.println("Request failed due to account not be open currently. Returning to main menu.");
+				}
+			// return to main menu
+			String[] sessionUserInfo = new String[10];
+			sessionUserInfo[0] = user.getUsername();
+			sessionUserInfo[1] = user.getPassword();
+			MenuDriver.main(sessionUserInfo);
+		}else {
+			throw new BankException("Only the account holder has access to make transactions of this type.");
+		}
 	}
 
 	public static void transfer() {
